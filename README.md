@@ -35,7 +35,7 @@ This will install the following dependencies:
 
 Ensure that Keras uses your chosen backend. You can find the instructions [here](https://keras.io/backend/), under the *Switching from one backend to another* section.
 
-Run the included script, which downloads the pretrained DeepMoji weights (~85MB) from [here](https://www.dropbox.com/s/mov8x7tk3sowh0a/deepmoji_weights.hdf5?dl=0) and places them in the model/ directory:
+Run the included script, which downloads the pretrained DeepMoji weights (~85MB) from [here](https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?dl=0) and places them in the model/ directory:
 
 ```bash
 python scripts/download_weights.py
