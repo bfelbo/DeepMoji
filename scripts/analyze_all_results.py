@@ -11,9 +11,9 @@ DATASETS = ['SE0714', 'Olympic', 'PsychExp', 'SS-Twitter', 'SS-Youtube',
             'SCv1', 'SV2-GEN'] # 'SE1604' excluded due to Twitter's ToS
 
 def get_results(dset):
-    METHOD = 'full'
+    METHOD = 'last'
     RESULTS_DIR = 'results/'
-    RESULT_PATHS = glob.glob('{}/{}_{}_*_results.txt'.format(RESULTS_DIR, DATASET, METHOD))
+    RESULT_PATHS = glob.glob('{}/{}_{}_*_results.txt'.format(RESULTS_DIR, dset, METHOD))
     assert len(RESULT_PATHS)
 
     scores = []
@@ -27,7 +27,7 @@ def get_results(dset):
     minimum = min(scores)
     std = np.std(scores)
 
-    print('Dataset: {}'.format(DATASET))
+    print('Dataset: {}'.format(dset))
     print('Method:  {}'.format(METHOD))
     print('Number of results: {}'.format(len(scores)))
     print('--------------------------')
@@ -36,5 +36,5 @@ def get_results(dset):
     print('Minimum: {}'.format(minimum))
     print('Standard deviaton: {}'.format(std))
 
-for dset in []:
+for dset in DATASETS:
     get_results(dset)
