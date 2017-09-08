@@ -105,8 +105,10 @@ for s in EMOTICONS_START:
         for e in EMOTICONS_END:
             RE_EMOTICON += '|{0}{1}?{2}+'.format(re.escape(s), re.escape(m), re.escape(e))
 
-RE_EMOJI = u"""[\U0001F300-\U0001F64F\U0001F680-\U0001F6FF
-\u2600-\u26FF\u2700-\u27BF]"""
+# requires ucs4 in python2.7 or python3+
+# RE_EMOJI = r"""[\U0001F300-\U0001F64F\U0001F680-\U0001F6FF\u2600-\u26FF\u2700-\u27BF]"""
+# safe for all python
+RE_EMOJI = ur"""\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f\ude80-\udeff]|[\u2600-\u26FF\u2700-\u27BF]"""
 
 # List of matched token patterns, ordered from most specific to least specific.
 TOKENS = [
