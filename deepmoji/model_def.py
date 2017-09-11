@@ -5,7 +5,7 @@ from __future__ import print_function, division
 
 from keras.models import Model, Sequential
 from keras.layers.merge import concatenate
-from keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, SpatialDropout1D, LSTM, Activation, Lambda
+from keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, SpatialDropout1D, LSTM, Activation
 from keras.regularizers import L1L2
 from attlayer import AttentionWeightedAverage
 from global_variables import NB_TOKENS, NB_EMOJI_CLASSES
@@ -44,6 +44,8 @@ def deepmoji_emojis(maxlen, weight_path, return_attention=False):
     # Arguments:
         maxlen: Maximum length of a sentence (given in tokens).
         weight_path: Path to model weights to be loaded.
+        return_attention: If true, output will be weight of each input token
+            used for the prediction
 
     # Returns:
         Pretrained model for encoding text into feature vectors.
