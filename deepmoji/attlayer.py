@@ -49,7 +49,7 @@ class AttentionWeightedAverage(Layer):
         weighted_input = x * K.expand_dims(att_weights)
         result = K.sum(weighted_input, axis=1)
         if self.return_attention:
-            return concatenate([result, att_weights])
+            return [result, att_weights]
         return result
 
     def get_output_shape_for(self, input_shape):
@@ -58,7 +58,7 @@ class AttentionWeightedAverage(Layer):
     def compute_output_shape(self, input_shape):
         output_len = input_shape[2]
         if self.return_attention:
-            output_len += input_shape[1]
+            return [(input_shape[0], output_len), (input_shape[0], input_shape[1])]
         return (input_shape[0], output_len)
 
     def compute_mask(self, input, input_mask=None):

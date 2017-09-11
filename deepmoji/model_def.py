@@ -96,14 +96,6 @@ def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
                      extend_embedding=extend_embedding)
     return model
 
-def sliceFeat(x):
-    # return the feature portion of the vector
-    return x[:,:2304]
-
-def sliceWeight(x):
-    # return the attention weight portion of the vector
-    return x[:,2304:]
-
 
 def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, embed_dropout_rate=0, final_dropout_rate=0, embed_l2=1E-6, return_attention=False):
     """
@@ -149,15 +141,13 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
     lstm_0_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_0")(x)
     lstm_1_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_1")(lstm_0_output)
     x = concatenate([lstm_1_output, lstm_0_output, x])
-    x = AttentionWeightedAverage(name='attlayer', return_attention=return_attention)(x)
 
-    # if the attention mechanism returned the weights, the tensor is wider than normal
-    # so split into feature and weight tensors
+    # if return_attention is True in AttentionWeightedAverage, an additional tensor
+    # representing the weight at each timestep is returned
     weights = None
-    outputs = None
+    x = AttentionWeightedAverage(name='attlayer', return_attention=return_attention)(x)
     if return_attention:
-        weights = Lambda(sliceWeight)(x)
-        x = Lambda(sliceFeat)(x)
+        x, weights = x
 
     if feature_output == False:
         # output class probabilities
