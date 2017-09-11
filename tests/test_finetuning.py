@@ -74,6 +74,24 @@ def test_deepmoji_transfer_extend_embedding():
     assert embedding_layer.input_dim == NB_TOKENS + extend_with
 
 
+def test_deepmoji_return_attention():
+    # test the output of the normal model
+    model = deepmoji_emojis(maxlen=30, weight_path=PRETRAINED_PATH)
+    # check correct number of outputs
+    assert 1 == len(model.outputs)
+    # check model outputs come from correct layers
+    assert [['softmax', 0, 0]] == model.get_config()['output_layers']
+    # ensure that output shapes are correct (assume a 5-example batch of 30-timesteps)
+    input_shape = (5, 30, 2304)
+    assert (5, 2304) == model.layers[6].compute_output_shape(input_shape)
+
+    # repeat above described tests when returning attention weights
+    model = deepmoji_emojis(maxlen=30, weight_path=PRETRAINED_PATH, return_attention=True)
+    assert 2 == len(model.outputs)
+    assert [['softmax', 0, 0], ['attlayer', 0, 1]] == model.get_config()['output_layers']
+    assert [(5, 2304), (5, 30)] == model.layers[6].compute_output_shape(input_shape)
+
+
 def test_relabel():
     """ relabel() works with multi-class labels.
     """

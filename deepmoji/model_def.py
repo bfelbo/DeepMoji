@@ -14,7 +14,7 @@ from copy import deepcopy
 from os.path import exists
 import h5py
 
-def deepmoji_feature_encoding(maxlen, weight_path):
+def deepmoji_feature_encoding(maxlen, weight_path, return_attention=False):
     """ Loads the pretrained DeepMoji model for extracting features
         from the penultimate feature layer. In this way, it transforms
         the text into its emotional encoding.
@@ -22,18 +22,21 @@ def deepmoji_feature_encoding(maxlen, weight_path):
     # Arguments:
         maxlen: Maximum length of a sentence (given in tokens).
         weight_path: Path to model weights to be loaded.
+        return_attention: If true, output will be weight of each input token
+            used for the prediction
 
     # Returns:
         Pretrained model for encoding text into feature vectors.
     """
 
     model = deepmoji_architecture(nb_classes=None, nb_tokens=NB_TOKENS,
-                                  maxlen=maxlen, feature_output=True)
+                                  maxlen=maxlen, feature_output=True,
+                                  return_attention=return_attention)
     load_specific_weights(model, weight_path, exclude_names=['softmax'])
     return model
 
 
-def deepmoji_emojis(maxlen, weight_path):
+def deepmoji_emojis(maxlen, weight_path, return_attention=False):
     """ Loads the pretrained DeepMoji model for extracting features
         from the penultimate feature layer. In this way, it transforms
         the text into its emotional encoding.
@@ -41,13 +44,16 @@ def deepmoji_emojis(maxlen, weight_path):
     # Arguments:
         maxlen: Maximum length of a sentence (given in tokens).
         weight_path: Path to model weights to be loaded.
+        return_attention: If true, output will be weight of each input token
+            used for the prediction
 
     # Returns:
         Pretrained model for encoding text into feature vectors.
     """
 
     model = deepmoji_architecture(nb_classes=NB_EMOJI_CLASSES,
-                                  nb_tokens=NB_TOKENS, maxlen=maxlen)
+                                  nb_tokens=NB_TOKENS, maxlen=maxlen,
+                                  return_attention=return_attention)
     model.load_weights(weight_path, by_name=False)
     return model
 
@@ -93,7 +99,7 @@ def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
     return model
 
 
-def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, embed_dropout_rate=0, final_dropout_rate=0, embed_l2=1E-6):
+def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, embed_dropout_rate=0, final_dropout_rate=0, embed_l2=1E-6, return_attention=False):
     """
     Returns the DeepMoji architecture uninitialized and
     without using the pretrained model weights.
@@ -112,7 +118,6 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
     # Returns:
         Model with the given parameters.
     """
-
     # define embedding layer that turns word tokens into vectors
     # an activation function is used to bound the values of the embedding
     model_input = Input(shape=(maxlen,), dtype='int32')
@@ -138,7 +143,13 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
     lstm_0_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_0")(x)
     lstm_1_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_1")(lstm_0_output)
     x = concatenate([lstm_1_output, lstm_0_output, x])
-    x = AttentionWeightedAverage(name='attlayer')(x)
+
+    # if return_attention is True in AttentionWeightedAverage, an additional tensor
+    # representing the weight at each timestep is returned
+    weights = None
+    x = AttentionWeightedAverage(name='attlayer', return_attention=return_attention)(x)
+    if return_attention:
+        x, weights = x
 
     if feature_output == False:
         # output class probabilities
@@ -149,12 +160,15 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
             outputs = [Dense(nb_classes, activation='softmax', name='softmax')(x)]
         else:
             outputs = [Dense(1, activation='sigmoid', name='softmax')(x)]
-        model = Model(inputs=[model_input], outputs=outputs, name="DeepMoji")
     else:
         # output penultimate feature vector
-        model = Model(inputs=[model_input], outputs=x, name="DeepMoji")
+        outputs = [x]
 
-    return model
+    if return_attention:
+        # add the attention weights to the outputs if required
+        outputs.append(weights)
+
+    return Model(inputs=[model_input], outputs=outputs, name="DeepMoji")
 
 
 def load_specific_weights(model, weight_path, exclude_names=[], extend_embedding=0, verbose=True):
