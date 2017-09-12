@@ -46,7 +46,9 @@ model.summary()
 print('Running predictions.')
 prob = model.predict(tokenized)
 
-# Find top emojis for each sentence
+# Find top emojis for each sentence. Emoji ids (0-63)
+# correspond to the mapping in emoji_overview.png 
+# at the root of the DeepMoji repo.
 print('Writing results to {}'.format(OUTPUT_PATH))
 scores = []
 for i, t in enumerate(TEST_SENTENCES):
