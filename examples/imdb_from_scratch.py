@@ -8,7 +8,7 @@ import example_helper
 import numpy as np
 from keras.preprocessing import sequence
 from keras.datasets import imdb
-from deepmoji.model_def import DeepMoji
+from deepmoji.model_def import deepmoji_architecture
 
 # Seed for reproducibility
 np.random.seed(1337)
@@ -29,7 +29,7 @@ print('X_train shape:', X_train.shape)
 print('X_test shape:', X_test.shape)
 
 print('Build model...')
-model = DeepMoji(nb_classes=2, nb_tokens=nb_tokens, maxlen=maxlen)
+model = deepmoji_architecture(nb_classes=2, nb_tokens=nb_tokens, maxlen=maxlen)
 model.summary()
 
 model.compile(loss='binary_crossentropy',
