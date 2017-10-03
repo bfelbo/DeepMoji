@@ -1,6 +1,6 @@
 # Datasets
 
-Below are the label descriptions for each dataset. For instance, if an observation in PsychExp has label 3, then that observation is in the sadness category.
+Below are the label descriptions for each dataset in the same order as the label categories in the datasets. For instance, if an observation in SCv1 has label 1, then that observation is in the sarcasm category. Note that the Olympic and SE0714 datasets can have multiple labels associated with each observation.
 
 * **Olympic:** negative & high control, positive & high control, negative & low control, positive & high control
 * **PsychExp:** joy, fear, anger, sadness, disgust, shame, guilt
