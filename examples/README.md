@@ -20,7 +20,7 @@ Use DeepMoji to score texts for emoji distribution.
 [encode_texts.py](encode_texts.py)  
 Use DeepMoji to encode the text into 2304-dimensional feature vectors for further modeling/analysis.
 
-[imdb_from_scratch.py](deepmoji_imdb_scratch.py)  
+[imdb_from_scratch.py](imdb_from_scratch.py)
 Train the DeepMoji on the IMDB sentiment classification task without loading the pretrained weights.  
   
 ## Transfer learning
