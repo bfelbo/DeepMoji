@@ -19,9 +19,13 @@ To start out with, have a look inside the [examples/](examples) directory. See [
 
 Please consider citing our [paper](https://arxiv.org/abs/1708.00524) if you use our model or code (see below for citation).
 
+## Frameworks
+
+This code is based on Keras, which requires either Theano or Tensorflow as the backend. If you would rather use pyTorch there's an implementation available [here](https://github.com/huggingface/torchMoji), which has kindly been provided by Thomas Wolf.
+
 ## Installation
 
-We assume that you're using [Python 2.7](https://www.python.org/downloads/) with [pip](https://pip.pypa.io/en/stable/installing/) installed. As a backend you need to install either [Theano (version 0.9+)](http://deeplearning.net/software/theano/install.html) or [Tensorflow (version 1.3+)](https://www.tensorflow.org/install/). Inside the root directory, run the following to install the remaining dependencies:
+We assume that you're using [Python 2.7](https://www.python.org/downloads/) with [pip](https://pip.pypa.io/en/stable/installing/) installed. As a backend you need to install either [Theano (version 0.9+)](http://deeplearning.net/software/theano/install.html) or  [Tensorflow (version 1.3+)](https://www.tensorflow.org/install/). Once that's done you need to run the following inside the root directory to install the remaining dependencies:
   
 ```bash
 pip install -e .
