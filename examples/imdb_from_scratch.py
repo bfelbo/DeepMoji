@@ -18,7 +18,7 @@ maxlen = 80
 batch_size = 32
 
 print('Loading data...')
-(X_train, y_train), (X_test, y_test) = imdb.load_data(nb_words=nb_tokens)
+(X_train, y_train), (X_test, y_test) = imdb.load_data(num_words=nb_tokens)
 print(len(X_train), 'train sequences')
 print(len(X_test), 'test sequences')
 
@@ -37,7 +37,7 @@ model.compile(loss='binary_crossentropy',
               metrics=['accuracy'])
 
 print('Train...')
-model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=15,
+model.fit(X_train, y_train, batch_size=batch_size, epochs=15,
           validation_data=(X_test, y_test))
 score, acc = model.evaluate(X_test, y_test, batch_size=batch_size)
 print('Test score:', score)
