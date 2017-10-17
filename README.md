@@ -19,6 +19,11 @@ To start out with, have a look inside the [examples/](examples) directory. See [
 
 Please consider citing our [paper](https://arxiv.org/abs/1708.00524) if you use our model or code (see below for citation).
 
+## Emoji Codes
+Here the emoji codes mapping to model classes.
+
+![emoji_overview](https://user-images.githubusercontent.com/163333/31664953-a4ea8836-b347-11e7-82b4-999b41949786.png)
+
 ## Frameworks
 
 This code is based on Keras, which requires either Theano or Tensorflow as the backend. If you would rather use pyTorch there's an implementation available [here](https://github.com/huggingface/torchMoji), which has kindly been provided by Thomas Wolf.
@@ -59,11 +64,6 @@ To run the tests, install [nose](http://nose.readthedocs.io/en/latest/). After i
 ```bash
 nosetests -v
 ```
-
-## Emoji Codes
-Here the moji codes mapping.
-
-![emoji_overview](https://user-images.githubusercontent.com/163333/31664953-a4ea8836-b347-11e7-82b4-999b41949786.png)
 
 By default, this will also run finetuning tests. These tests train the model for one epoch and then check the resulting accuracy, which may take several minutes to finish. If you'd prefer to exclude those, run the following instead: 
 
