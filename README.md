@@ -45,12 +45,25 @@ Run the included script, which downloads the pretrained DeepMoji weights (~85MB)
 python scripts/download_weights.py
 ```
 
+## Virtualenv installation with Default backend (Tensorflow)
+To install via `virtualenv` and the defaulk leras backend `tensorflow`
+```
+virtualenv .env
+. .env/bin/activate
+pip install -r requirements.text
+```
+
 ## Testing
 To run the tests, install [nose](http://nose.readthedocs.io/en/latest/). After installing, navigate to the [tests/](tests) directory and run:
 
 ```bash
 nosetests -v
 ```
+
+## Emoji Codes
+Here the moji codes mapping.
+
+![emoji_overview](https://user-images.githubusercontent.com/163333/31664953-a4ea8836-b347-11e7-82b4-999b41949786.png)
 
 By default, this will also run finetuning tests. These tests train the model for one epoch and then check the resulting accuracy, which may take several minutes to finish. If you'd prefer to exclude those, run the following instead: 
 
