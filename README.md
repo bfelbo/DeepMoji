@@ -45,8 +45,8 @@ Run the included script, which downloads the pretrained DeepMoji weights (~85MB)
 python scripts/download_weights.py
 ```
 
-## Virtualenv installation with Default backend (Tensorflow)
-To install via `virtualenv` and the defaulk leras backend `tensorflow`
+## Virtualenv installation with Default backend
+To install via `virtualenv` and the default Keras backend `tensorflow`
 ```
 virtualenv .env
 . .env/bin/activate
