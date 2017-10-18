@@ -44,7 +44,7 @@ class AttentionWeightedAverage(Layer):
         if mask is not None:
             mask = K.cast(mask, K.floatx())
             ai = ai * mask
-        att_weights = ai / K.sum(ai, axis=1, keepdims=True)
+        att_weights = ai / (K.sum(ai, axis=1, keepdims=True) + K.epsilon())
         weighted_input = x * K.expand_dims(att_weights)
         result = K.sum(weighted_input, axis=1)
         if self.return_attention:
