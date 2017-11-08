@@ -23,7 +23,10 @@ def prompt():
             'n': False,
             'no': False,
         }
-        choice = raw_input().lower()
+        if 'TRAVIS' in os.environ:
+            choice = 'yes'
+        else:
+            choice = raw_input().lower()
         if choice in valid:
             return valid[choice]
         else:

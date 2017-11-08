@@ -1,0 +1,16 @@
+dist: trusty
+language: python
+notifications:
+  email: false
+cache:
+  pip: true
+matrix:
+  include:
+    - python: 2.7
+install:
+  - pip install nose tensorflow==1.4.0
+  - pip install -e .
+script:
+  - python scripts/download_weights.py
+  - cd tests
+  - nosetests -v
