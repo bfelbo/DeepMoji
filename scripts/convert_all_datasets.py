@@ -19,10 +19,10 @@ DATASETS = [
     'SCv1',
     'SCv2-GEN',
     'SE0714',
-    #'SE1604', # Excluded due to Twitter's ToS
+    # 'SE1604', # Excluded due to Twitter's ToS
     'SS-Twitter',
     'SS-Youtube',
-    ]
+]
 
 DIR = '../data'
 FILENAME_RAW = 'raw.pickle'

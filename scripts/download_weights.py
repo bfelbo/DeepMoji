@@ -50,9 +50,9 @@ if download:
     if already_exists or prompt():
         print('Downloading...')
 
-        #urllib.urlretrieve(weights_download_link, weights_path)
-        #with open(weights_path,'wb') as f:
-        #    f.write(requests.get(weights_download_link).content)
+        # urllib.urlretrieve(weights_download_link, weights_path)
+        # with open(weights_path,'wb') as f:
+        #     f.write(requests.get(weights_download_link).content)
 
         # downloading using wget due to issues with urlretrieve and requests
         sys_call = 'wget {} -O {}'.format(weights_download_link, os.path.abspath(weights_path))
