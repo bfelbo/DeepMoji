@@ -37,5 +37,6 @@ def get_results(dset):
     print('Minimum: {}'.format(minimum))
     print('Standard deviaton: {}'.format(std))
 
+
 for dset in DATASETS:
     get_results(dset)

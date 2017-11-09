@@ -33,6 +33,7 @@ def prompt():
         else:
             print('Please respond with \'y\' or \'n\' (or \'yes\' or \'no\')')
 
+
 download = True
 if os.path.exists(weights_path):
     print('Weight file already exists at {}. Would you like to redownload it anyway? [y/n]'.format(weights_path))

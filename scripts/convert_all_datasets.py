@@ -63,6 +63,7 @@ def convert_dataset(filepath, extend_with, vocab):
 
     print('     done. Coverage: {}'.format(cover))
 
+
 with open('../model/vocabulary.json', 'r') as f:
     vocab = json.load(f)
 
