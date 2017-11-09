@@ -4,7 +4,7 @@ import sys
 import glob
 import numpy as np
 
-DATASET = 'SS-Twitter' # 'SE1604' excluded due to Twitter's ToS
+DATASET = 'SS-Twitter'  # 'SE1604' excluded due to Twitter's ToS
 METHOD = 'new'
 
 # Optional usage: analyze_results.py <dataset> <method>
