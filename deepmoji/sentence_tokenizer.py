@@ -80,8 +80,8 @@ class SentenceTokenizer():
         if self.masking_value == 0:
             tokens = np.zeros((n_sentences, self.fixed_length), dtype='uint16')
         else:
-            tokens = (np.ones((n_sentences, self.fixed_length), dtype='uint16')
-                      * self.masking_value)
+            tokens = (np.ones((n_sentences, self.fixed_length), dtype='uint16') *
+                      self.masking_value)
 
         if reset_stats:
             self.wordgen.reset_stats()
@@ -163,8 +163,8 @@ class SentenceTokenizer():
 
             # Helper function to verify provided indices are numbers in range
             def verify_indices(inds):
-                return list(filter(lambda i: isinstance(i, numbers.Number)
-                                   and i < len(sentences), inds))
+                return list(filter(lambda i: isinstance(i, numbers.Number) and
+                                   i < len(sentences), inds))
 
             ind_train = verify_indices(split_parameter[0])
             ind_val = verify_indices(split_parameter[1])

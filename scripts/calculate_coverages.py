@@ -73,7 +73,7 @@ with open(OUTPUT_PATH, 'wb') as csvfile:
     for i, row in enumerate(results):
         try:
             writer.writerow(row)
-        except:
+        except Exception:
             print("Exception at row {}!".format(i))
 
 print('Saved to {}'.format(OUTPUT_PATH))

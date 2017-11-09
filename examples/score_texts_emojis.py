@@ -72,5 +72,5 @@ with open(OUTPUT_PATH, 'wb') as csvfile:
     for i, row in enumerate(scores):
         try:
             writer.writerow(row)
-        except:
+        except Exception:
             print("Exception at row {}!".format(i))

@@ -12,7 +12,7 @@ if curr_folder == 'scripts':
 weights_download_link = 'https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?dl=0#'
 
 
-MB_FACTOR = float(1<<20)
+MB_FACTOR = float(1 << 20)
 
 
 def prompt():

@@ -211,8 +211,8 @@ def load_specific_weights(model, weight_path, exclude_names=[], extend_embedding
         try:
             model_l = model.get_layer(name=l_name)
         except ValueError:
-            raise ValueError("Weights had layer {},".format(l_name)
-                             + " but could not find this layer in model.")
+            raise ValueError("Weights had layer {},".format(l_name) +
+                             " but could not find this layer in model.")
 
         if verbose:
             print('Loading weights for {}'.format(l_name))

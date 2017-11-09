@@ -11,8 +11,8 @@ import math
 from deepmoji.model_def import deepmoji_transfer
 from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
 from deepmoji.finetuning import (
-     load_benchmark,
-     finetune)
+    load_benchmark,
+    finetune)
 from deepmoji.class_avg_finetuning import class_avg_finetune
 
 
@@ -76,9 +76,9 @@ for rerun_iter in range(5):
         weight_path = PRETRAINED_PATH if FINETUNE_METHOD != 'new' else None
         nb_model_classes = 2 if use_f1_score else nb_classes
         model = deepmoji_transfer(
-                    nb_model_classes,
-                    data['maxlen'], weight_path,
-                    extend_embedding=data['added'])
+            nb_model_classes,
+            data['maxlen'], weight_path,
+            extend_embedding=data['added'])
         model.summary()
 
         # Training
