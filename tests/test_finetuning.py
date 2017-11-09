@@ -177,13 +177,13 @@ def test_score_emoji():
     ]
 
     expected = [
-        np.array([36,  4,  8, 16, 47]),
+        np.array([36, 4, 8, 16, 47]),
         np.array([1, 19, 55, 25, 46]),
-        np.array([31,  6, 30, 15, 13]),
-        np.array([54, 44,  9, 50, 49]),
-        np.array([46,  5, 27, 35, 34]),
-        np.array([55, 32, 27,  1, 37]),
-        np.array([48, 11,  6, 31,  9])
+        np.array([31, 6, 30, 15, 13]),
+        np.array([54, 44, 9, 50, 49]),
+        np.array([46, 5, 27, 35, 34]),
+        np.array([55, 32, 27, 1, 37]),
+        np.array([48, 11, 6, 31, 9])
     ]
 
     def top_elements(array, k):
