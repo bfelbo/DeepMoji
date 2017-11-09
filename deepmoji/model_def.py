@@ -152,7 +152,7 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
     if return_attention:
         x, weights = x
 
-    if feature_output == False:
+    if not feature_output:
         # output class probabilities
         if final_dropout_rate != 0:
             x = Dropout(final_dropout_rate)(x)

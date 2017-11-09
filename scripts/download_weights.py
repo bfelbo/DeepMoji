@@ -42,7 +42,7 @@ else:
 
 if download:
     print('About to download the pretrained weights file from {}'.format(weights_download_link))
-    if already_exists == False:
+    if not already_exists:
         print('The size of the file is roughly 85MB. Continue? [y/n]')
     else:
         os.unlink(weights_path)
