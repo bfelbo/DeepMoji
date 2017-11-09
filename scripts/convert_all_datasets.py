@@ -44,6 +44,7 @@ def format_pickle(dset, train_texts, val_texts, test_texts, train_labels, val_la
             'val_labels': val_labels,
             'test_labels': test_labels}
 
+
 def convert_dataset(filepath, extend_with, vocab):
     print('-- Generating {} '.format(filepath))
     sys.stdout.flush()
@@ -55,7 +56,7 @@ def convert_dataset(filepath, extend_with, vocab):
                                                    data['test_ind']],
                                                   extend_with=extend_with)
     pick = format_pickle(dset, tokenized[0], tokenized[1], tokenized[2],
-                        dicts[0], dicts[1], dicts[2])
+                         dicts[0], dicts[1], dicts[2])
     with open(filepath, 'w') as f:
         pickle.dump(pick, f)
     cover = coverage(tokenized[2])

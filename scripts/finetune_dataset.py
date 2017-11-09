@@ -15,6 +15,7 @@ from deepmoji.finetuning import (
      finetune)
 from deepmoji.class_avg_finetuning import class_avg_finetune
 
+
 def roundup(x):
     return int(math.ceil(x / 10.0)) * 10
 
