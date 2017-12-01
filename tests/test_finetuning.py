@@ -125,7 +125,7 @@ def test_finetune_full():
     """
     DATASET_PATH = '../data/SS-Youtube/raw.pickle'
     nb_classes = 2
-    min_acc = 0.70
+    min_acc = 0.65
 
     with open('../model/vocabulary.json', 'r') as f:
         vocab = json.load(f)
@@ -147,7 +147,7 @@ def test_finetune_last():
     """
     DATASET_PATH = '../data/SS-Youtube/raw.pickle'
     nb_classes = 2
-    min_acc = 0.68
+    min_acc = 0.65
 
     with open('../model/vocabulary.json', 'r') as f:
         vocab = json.load(f)
