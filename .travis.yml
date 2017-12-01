@@ -7,6 +7,12 @@ cache:
 matrix:
   include:
     - python: 2.7
+    - os: osx
+      osx_image: xcode9.1
+      language: generic
+      before_install:
+      - virtualenv env
+      - source env/bin/activate
 install:
   - pip install nose tensorflow==1.4.0
   - pip install -e .
