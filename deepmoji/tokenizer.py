@@ -33,7 +33,7 @@ TITLES = [
     ur'Mrs\.',
     ur'Dr\.',
     ur'Prof\.',
-    ]
+]
 # Ensure case insensitivity
 RE_TITLES = ur'|'.join([ur'(?i)' + t for t in TITLES])
 
@@ -64,14 +64,14 @@ EMOTICONS_START = [
     ur':',
     ur'=',
     ur';',
-    ]
+]
 EMOTICONS_MID = [
     ur'-',
     ur',',
     ur'^',
     u'\'',
     u'\"',
-    ]
+]
 EMOTICONS_END = [
     ur'D',
     ur'd',
@@ -86,7 +86,7 @@ EMOTICONS_END = [
     ur'/',
     ur'|',
     u'\\',
-    ]
+]
 EMOTICONS_EXTRA = [
     ur'-_-',
     ur'x_x',
@@ -97,7 +97,7 @@ EMOTICONS_EXTRA = [
     ur'):',
     ur');',
     ur'(;',
-    ]
+]
 
 RE_EMOTICON = ur'|'.join([re.escape(s) for s in EMOTICONS_EXTRA])
 for s in EMOTICONS_START:
@@ -127,12 +127,12 @@ TOKENS = [
     RE_SYMBOL,
     RE_EMOJI,
     RE_ANY
-    ]
+]
 
 # List of ignored token patterns
 IGNORED = [
     RE_WHITESPACE
-    ]
+]
 
 # Final pattern
 RE_PATTERN = re.compile(ur'|'.join(IGNORED) + ur'|(' + ur'|'.join(TOKENS) + ur')',

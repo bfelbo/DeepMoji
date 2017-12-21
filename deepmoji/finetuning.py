@@ -26,6 +26,7 @@ from tokenizer import tokenize
 from sentence_tokenizer import SentenceTokenizer
 from attlayer import AttentionWeightedAverage
 
+
 def load_benchmark(path, vocab, extend_with=0):
     """ Loads the given benchmark dataset.
 
@@ -141,7 +142,7 @@ def freeze_layers(model, unfrozen_types=[], unfrozen_keyword=None):
     for l in model.layers:
         if len(l.trainable_weights):
             trainable = (type(l) in unfrozen_types or
-                (unfrozen_keyword is not None and unfrozen_keyword in l.name))
+                         (unfrozen_keyword is not None and unfrozen_keyword in l.name))
             change_trainable(l, trainable, verbose=False)
     return model
 
@@ -168,7 +169,6 @@ def change_trainable(layer, trainable, verbose=False):
     if verbose:
         action = 'Unfroze' if trainable else 'Froze'
         print("{} {}".format(action, layer.name))
-
 
 
 def find_f1_threshold(y_val, y_pred_val, y_test, y_pred_test,
@@ -220,7 +220,7 @@ def relabel(y, current_label_nr, nb_classes):
         return y
 
     y_new = np.zeros(len(y))
-    y_cut = y[:,current_label_nr]
+    y_cut = y[:, current_label_nr]
     label_pos = np.where(y_cut == 1)[0]
     y_new[label_pos] = 1
     return y_new
@@ -281,7 +281,7 @@ def sampling_generator(X_in, y_in, batch_size, epoch_size=25000,
             assert(label_dist < 0.55)
 
         # Hand-off data using batch_size
-        for i in range(int(epoch_size/batch_size)):
+        for i in range(int(epoch_size / batch_size)):
             start = i * batch_size
             end = min(start + batch_size, epoch_size)
             yield (X[start:end], y[start:end])
@@ -333,12 +333,12 @@ def finetune(model, texts, labels, nb_classes, batch_size, method,
     if error_checking:
         for ls in [y_train, y_val, y_test]:
             if not ls.ndim == 1:
-                    print('WARNING (finetune): The dimension of the '
-                          'provided label list does not match the expected '
-                          'value. When using the \'{}\' metric, the labels '
-                          'should be a 1-dimensional array. '
-                          'Input shape was {}'.format(metric, ls.shape))
-                    break
+                print('WARNING (finetune): The dimension of the '
+                      'provided label list does not match the expected '
+                      'value. When using the \'{}\' metric, the labels '
+                      'should be a 1-dimensional array. '
+                      'Input shape was {}'.format(metric, ls.shape))
+                break
 
     if method in ['last', 'new']:
         lr = 0.001
@@ -428,7 +428,7 @@ def tune_trainable(model, nb_classes, train, val, test, epoch_size,
     train_gen = sampling_generator(X_train, y_train,
                                    batch_size, upsample=False)
     callbacks = finetuning_callbacks(checkpoint_weight_path, patience, verbose)
-    steps = int(epoch_size/batch_size)
+    steps = int(epoch_size / batch_size)
     model.fit_generator(train_gen, steps_per_epoch=steps,
                         epochs=nb_epochs,
                         validation_data=(X_val, y_val),
@@ -490,10 +490,10 @@ def evaluate_using_acc(model, X_test, y_test, batch_size):
 
 
 def chain_thaw(model, nb_classes, train, val, test, batch_size,
-                        loss, epoch_size, nb_epochs, checkpoint_weight_path,
-                        patience=5,
-                        initial_lr=0.001, next_lr=0.0001, seed=None,
-                        verbose=1, evaluate='acc'):
+               loss, epoch_size, nb_epochs, checkpoint_weight_path,
+               patience=5,
+               initial_lr=0.001, next_lr=0.0001, seed=None,
+               verbose=1, evaluate='acc'):
     """ Finetunes given model using chain-thaw and evaluates using accuracy.
 
     # Arguments:
@@ -618,7 +618,7 @@ def train_by_chain_thaw(model, train_gen, val_data, loss, callbacks, epoch_size,
             else:
                 print('Finetuning {}'.format(layer.name))
 
-        steps = int(epoch_size/batch_size)
+        steps = int(epoch_size / batch_size)
         model.fit_generator(train_gen, steps_per_epoch=steps,
                             epochs=nb_epochs, validation_data=val_data,
                             callbacks=callbacks, verbose=(verbose >= 2))

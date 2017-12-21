@@ -12,10 +12,12 @@ from global_variables import SPECIAL_TOKENS
 from sklearn.model_selection import train_test_split
 from copy import deepcopy
 
+
 class SentenceTokenizer():
     """ Create numpy array of tokens corresponding to input sentences.
         The vocabulary can include Unicode tokens.
     """
+
     def __init__(self, vocabulary, fixed_length, custom_wordgen=None,
                  ignore_sentences_with_only_custom=False, masking_value=0,
                  unknown_value=1):
@@ -102,7 +104,7 @@ class SentenceTokenizer():
                 continue
             if len(s_tokens) > self.fixed_length:
                 s_tokens = s_tokens[:self.fixed_length]
-            tokens[next_insert,:len(s_tokens)] = s_tokens
+            tokens[next_insert, :len(s_tokens)] = s_tokens
             infos.append(s_info)
             next_insert += 1
 
@@ -162,7 +164,7 @@ class SentenceTokenizer():
             # Helper function to verify provided indices are numbers in range
             def verify_indices(inds):
                 return list(filter(lambda i: isinstance(i, numbers.Number)
-                            and i < len(sentences), inds))
+                                   and i < len(sentences), inds))
 
             ind_train = verify_indices(split_parameter[0])
             ind_val = verify_indices(split_parameter[1])

@@ -8,6 +8,7 @@ from keras import initializers
 from keras.engine import InputSpec, Layer
 from keras import backend as K
 
+
 class AttentionWeightedAverage(Layer):
     """
     Computes a weighted average of the different channels across timesteps.

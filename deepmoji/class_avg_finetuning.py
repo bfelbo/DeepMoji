@@ -20,6 +20,7 @@ from finetuning import (
     train_by_chain_thaw,
     find_f1_threshold)
 
+
 def relabel(y, current_label_nr, nb_classes):
     """ Makes a binary classification for a specific class in a
         multi-class dataset.
@@ -39,7 +40,7 @@ def relabel(y, current_label_nr, nb_classes):
         return y
 
     y_new = np.zeros(len(y))
-    y_cut = y[:,current_label_nr]
+    y_cut = y[:, current_label_nr]
     label_pos = np.where(y_cut == 1)[0]
     y_new[label_pos] = 1
     return y_new
@@ -155,13 +156,14 @@ def prepare_labels(y_train, y_val, y_test, iter_i, nb_classes):
     y_test_new = relabel(y_test, iter_i, nb_classes)
     return y_train_new, y_val_new, y_test_new
 
+
 def prepare_generators(X_train, y_train_new, X_val, y_val_new, batch_size, epoch_size):
     # Create sample generators
     # Make a fixed validation set to avoid fluctuations in validation
     train_gen = sampling_generator(X_train, y_train_new, batch_size,
-                                       upsample=False)
+                                   upsample=False)
     val_gen = sampling_generator(X_val, y_val_new,
-                                     epoch_size, upsample=False)
+                                 epoch_size, upsample=False)
     X_val_resamp, y_val_resamp = next(val_gen)
     return train_gen, X_val_resamp, y_val_resamp
 
@@ -203,7 +205,7 @@ def class_avg_tune_trainable(model, nb_classes, train, val, test, epoch_size,
     model.save_weights(init_weight_path)
     for i in range(nb_iter):
         if verbose:
-            print('Iteration number {}/{}'.format(i+1, nb_iter))
+            print('Iteration number {}/{}'.format(i + 1, nb_iter))
 
         model.load_weights(init_weight_path, by_name=False)
         y_train_new, y_val_new, y_test_new = prepare_labels(y_train, y_val,
@@ -215,7 +217,7 @@ def class_avg_tune_trainable(model, nb_classes, train, val, test, epoch_size,
         if verbose:
             print("Training..")
         callbacks = finetuning_callbacks(checkpoint_weight_path, patience)
-        steps = int(epoch_size/batch_size)
+        steps = int(epoch_size / batch_size)
         model.fit_generator(train_gen, steps_per_epoch=steps,
                             max_q_size=2, epochs=nb_epochs,
                             validation_data=(X_val_resamp, y_val_resamp),
@@ -287,14 +289,14 @@ def class_avg_chainthaw(model, nb_classes, train, val, test, batch_size,
 
     for i in range(nb_iter):
         if verbose:
-            print('Iteration number {}/{}'.format(i+1, nb_iter))
+            print('Iteration number {}/{}'.format(i + 1, nb_iter))
 
         model.load_weights(f1_init_weight_path, by_name=False)
         y_train_new, y_val_new, y_test_new = prepare_labels(y_train, y_val,
                                                             y_test, i, nb_classes)
         train_gen, X_val_resamp, y_val_resamp = \
-                prepare_generators(X_train, y_train_new, X_val, y_val_new,
-                                   batch_size, epoch_size)
+            prepare_generators(X_train, y_train_new, X_val, y_val_new,
+                               batch_size, epoch_size)
 
         if verbose:
             print("Training..")

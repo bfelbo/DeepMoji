@@ -13,27 +13,28 @@ AtMentionRegex = re.compile(RE_MENTION)
 urlRegex = re.compile(RE_URL)
 
 # from http://bit.ly/2rdjgjE (UTF-8 encodings and Unicode chars)
-VARIATION_SELECTORS = [ u'\ufe00',
-                        u'\ufe01',
-                        u'\ufe02',
-                        u'\ufe03',
-                        u'\ufe04',
-                        u'\ufe05',
-                        u'\ufe06',
-                        u'\ufe07',
-                        u'\ufe08',
-                        u'\ufe09',
-                        u'\ufe0a',
-                        u'\ufe0b',
-                        u'\ufe0c',
-                        u'\ufe0d',
-                        u'\ufe0e',
-                        u'\ufe0f']
+VARIATION_SELECTORS = [u'\ufe00',
+                       u'\ufe01',
+                       u'\ufe02',
+                       u'\ufe03',
+                       u'\ufe04',
+                       u'\ufe05',
+                       u'\ufe06',
+                       u'\ufe07',
+                       u'\ufe08',
+                       u'\ufe09',
+                       u'\ufe0a',
+                       u'\ufe0b',
+                       u'\ufe0c',
+                       u'\ufe0d',
+                       u'\ufe0e',
+                       u'\ufe0f']
 
 # from https://stackoverflow.com/questions/92438/stripping-non-printable-characters-from-a-string-in-python
 ALL_CHARS = (unichr(i) for i in xrange(sys.maxunicode))
-CONTROL_CHARS = ''.join(map(unichr, range(0,32) + range(127,160)))
+CONTROL_CHARS = ''.join(map(unichr, range(0, 32) + range(127, 160)))
 CONTROL_CHAR_REGEX = re.compile('[%s]' % re.escape(CONTROL_CHARS))
+
 
 def is_special_token(word):
     equal = False
@@ -42,6 +43,7 @@ def is_special_token(word):
             equal = True
             break
     return equal
+
 
 def mostly_english(words, english, pct_eng_short=0.5, pct_eng_long=0.6, ignore_special_tokens=True, min_length=2):
     """ Ensure text meets threshold for containing English words """
@@ -71,6 +73,7 @@ def mostly_english(words, english, pct_eng_short=0.5, pct_eng_long=0.6, ignore_s
         valid_english = n_english >= n_words * pct_eng_long
     return valid_english, n_words, n_english
 
+
 def correct_length(words, min_words, max_words, ignore_special_tokens=True):
     """ Ensure text meets threshold for containing English words
         and that it's within the min and max words limits. """
@@ -91,16 +94,20 @@ def correct_length(words, min_words, max_words, ignore_special_tokens=True):
     valid = min_words <= n_words and n_words <= max_words
     return valid
 
+
 def punct_word(word, punctuation=string.punctuation):
     return all([True if c in punctuation else False for c in word])
+
 
 def load_non_english_user_set():
     non_english_user_set = set(np.load('uids.npz')['data'])
     return non_english_user_set
 
+
 def non_english_user(userid, non_english_user_set):
     neu_found = int(userid) in non_english_user_set
     return neu_found
+
 
 def separate_emojis_and_text(text):
     emoji_chars = []
@@ -112,9 +119,11 @@ def separate_emojis_and_text(text):
             non_emoji_chars.append(c)
     return ''.join(emoji_chars), ''.join(non_emoji_chars)
 
+
 def extract_emojis(text, wanted_emojis):
     text = remove_variation_selectors(text)
     return [c for c in text if c in wanted_emojis]
+
 
 def remove_variation_selectors(text):
     """ Remove styling glyph variants for Unicode characters.
@@ -123,6 +132,7 @@ def remove_variation_selectors(text):
     for var in VARIATION_SELECTORS:
         text = text.replace(var, u'')
     return text
+
 
 def shorten_word(word):
     """ Shorten groupings of 3+ identical consecutive chars to 2, e.g. '!!!!' --> '!!'
@@ -147,9 +157,10 @@ def shorten_word(word):
     # replace letters to find the short word
     short_word = word
     for trip in triple_or_more:
-        short_word = short_word.replace(trip, trip[0]*2)
+        short_word = short_word.replace(trip, trip[0] * 2)
 
     return short_word
+
 
 def detect_special_tokens(word):
     try:
@@ -162,6 +173,7 @@ def detect_special_tokens(word):
             word = SPECIAL_TOKENS[3]
     return word
 
+
 def process_word(word):
     """ Shortening and converting the word to a special token if relevant.
     """
@@ -169,14 +181,17 @@ def process_word(word):
     word = detect_special_tokens(word)
     return word
 
+
 def remove_control_chars(text):
     return CONTROL_CHAR_REGEX.sub('', text)
+
 
 def convert_nonbreaking_space(text):
     # ugly hack handling non-breaking space no matter how badly it's been encoded in the input
     for r in [u'\\\\xc2', u'\\xc2', u'\xc2', u'\\\\xa0', u'\\xa0', u'\xa0']:
         text = text.replace(r, u' ')
     return text
+
 
 def convert_linebreaks(text):
     # ugly hack handling non-breaking space no matter how badly it's been encoded in the input
