@@ -26,9 +26,11 @@ TEST_SENTENCES = [u'I love mom\'s cooking',
                   u'This is shit',
                   u'This is the shit']
 
+
 def top_elements(array, k):
     ind = np.argpartition(array, -k)[-k:]
     return ind[np.argsort(array[ind])][::-1]
+
 
 maxlen = 30
 batch_size = 32
@@ -47,7 +49,7 @@ print('Running predictions.')
 prob = model.predict(tokenized)
 
 # Find top emojis for each sentence. Emoji ids (0-63)
-# correspond to the mapping in emoji_overview.png 
+# correspond to the mapping in emoji_overview.png
 # at the root of the DeepMoji repo.
 print('Writing results to {}'.format(OUTPUT_PATH))
 scores = []
@@ -70,5 +72,5 @@ with open(OUTPUT_PATH, 'wb') as csvfile:
     for i, row in enumerate(scores):
         try:
             writer.writerow(row)
-        except:
+        except Exception:
             print("Exception at row {}!".format(i))

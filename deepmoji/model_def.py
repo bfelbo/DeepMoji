@@ -14,6 +14,7 @@ from copy import deepcopy
 from os.path import exists
 import h5py
 
+
 def deepmoji_feature_encoding(maxlen, weight_path, return_attention=False):
     """ Loads the pretrained DeepMoji model for extracting features
         from the penultimate feature layer. In this way, it transforms
@@ -59,8 +60,8 @@ def deepmoji_emojis(maxlen, weight_path, return_attention=False):
 
 
 def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
-                    embed_dropout_rate=0.25, final_dropout_rate=0.5,
-                    embed_l2=1E-6):
+                      embed_dropout_rate=0.25, final_dropout_rate=0.5,
+                      embed_l2=1E-6):
     """ Loads the pretrained DeepMoji model for finetuning/transfer learning.
         Does not load weights for the softmax layer.
 
@@ -88,14 +89,14 @@ def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
     """
 
     model = deepmoji_architecture(nb_classes=nb_classes,
-                     nb_tokens=NB_TOKENS + extend_embedding,
-                     maxlen=maxlen, embed_dropout_rate=embed_dropout_rate,
-                     final_dropout_rate=final_dropout_rate, embed_l2=embed_l2)
+                                  nb_tokens=NB_TOKENS + extend_embedding,
+                                  maxlen=maxlen, embed_dropout_rate=embed_dropout_rate,
+                                  final_dropout_rate=final_dropout_rate, embed_l2=embed_l2)
 
     if weight_path is not None:
         load_specific_weights(model, weight_path,
-                     exclude_names=['softmax'],
-                     extend_embedding=extend_embedding)
+                              exclude_names=['softmax'],
+                              extend_embedding=extend_embedding)
     return model
 
 
@@ -151,7 +152,7 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
     if return_attention:
         x, weights = x
 
-    if feature_output == False:
+    if not feature_output:
         # output class probabilities
         if final_dropout_rate != 0:
             x = Dropout(final_dropout_rate)(x)
@@ -210,8 +211,8 @@ def load_specific_weights(model, weight_path, exclude_names=[], extend_embedding
         try:
             model_l = model.get_layer(name=l_name)
         except ValueError:
-            raise ValueError("Weights had layer {},".format(l_name)
-                             + " but could not find this layer in model.")
+            raise ValueError("Weights had layer {},".format(l_name) +
+                             " but could not find this layer in model.")
 
         if verbose:
             print('Loading weights for {}'.format(l_name))
@@ -225,7 +226,7 @@ def load_specific_weights(model, weight_path, exclude_names=[], extend_embedding
             if verbose:
                 print('Extended vocabulary for embedding layer ' +
                       'from {} to {} tokens.'.format(
-                      NB_TOKENS, NB_TOKENS + extend_embedding))
+                          NB_TOKENS, NB_TOKENS + extend_embedding))
         else:
             model_l.set_weights(weight_values)
 

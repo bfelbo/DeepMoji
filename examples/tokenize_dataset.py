@@ -17,7 +17,7 @@ test_sentences = [
     u'\u2014 -- \u203c !!\U0001F602',
     u'Hello world!',
     u'This is a sample tweet #example',
-    ]
+]
 
 tokens, infos, stats = st.tokenize_sentences(test_sentences)
 

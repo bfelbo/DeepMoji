@@ -21,8 +21,8 @@ import json
 from deepmoji.model_def import deepmoji_transfer
 from deepmoji.global_variables import PRETRAINED_PATH
 from deepmoji.finetuning import (
-     load_benchmark,
-     finetune)
+    load_benchmark,
+    finetune)
 
 
 DATASET_PATH = '../data/kaggle-insults/raw.pickle'
@@ -38,7 +38,7 @@ data = load_benchmark(DATASET_PATH, vocab, extend_with=10000)
 # Set up model and finetune. Note that we have to extend the embedding layer
 # with the number of tokens added to the vocabulary.
 model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH,
-                        extend_embedding=data['added'])
+                          extend_embedding=data['added'])
 model.summary()
 model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                       data['batch_size'], method='chain-thaw')

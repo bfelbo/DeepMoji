@@ -8,7 +8,8 @@ from os.path import dirname, abspath
 sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
 DATASETS = ['SE0714', 'Olympic', 'PsychExp', 'SS-Twitter', 'SS-Youtube',
-            'SCv1', 'SV2-GEN'] # 'SE1604' excluded due to Twitter's ToS
+            'SCv1', 'SV2-GEN']  # 'SE1604' excluded due to Twitter's ToS
+
 
 def get_results(dset):
     METHOD = 'last'
@@ -35,6 +36,7 @@ def get_results(dset):
     print('Maximum: {}'.format(maximum))
     print('Minimum: {}'.format(minimum))
     print('Standard deviaton: {}'.format(std))
+
 
 for dset in DATASETS:
     get_results(dset)

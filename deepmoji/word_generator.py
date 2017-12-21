@@ -46,6 +46,7 @@ class WordGenerator():
     unicode_handling in ['ignore_sentence', 'convert_punctuation', 'allow']
     unicode_handling in ['ignore_emoji', 'ignore_sentence', 'allow']
     '''
+
     def __init__(self, stream, allow_unicode_text=False, ignore_emojis=True,
                  remove_variation_selectors=True, break_replacement=True):
         self.stream = stream
@@ -111,8 +112,8 @@ class WordGenerator():
                 # Check if all punctuation and therefore fine
                 # to include unidecoded version
                 allowed_punct = punct_word(
-                        decoded_c,
-                        punctuation=ALLOWED_CONVERTED_UNICODE_PUNCTUATION)
+                    decoded_c,
+                    punctuation=ALLOWED_CONVERTED_UNICODE_PUNCTUATION)
 
                 if allowed_punct:
                     word_converted_punct.append(decoded_c)
@@ -235,6 +236,7 @@ class TweetWordGenerator(WordGenerator):
     ''' Returns np array or generator of ASCII sentences for given tweet input.
         Any file opening/closing should be handled outside of this class.
     '''
+
     def __init__(self, stream, wanted_emojis=None, english_words=None,
                  non_english_user_set=None, allow_unicode_text=False,
                  ignore_retweets=True, ignore_url_tweets=True,

@@ -12,7 +12,8 @@ if curr_folder == 'scripts':
 weights_download_link = 'https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?dl=0#'
 
 
-MB_FACTOR = float(1<<20)
+MB_FACTOR = float(1 << 20)
+
 
 def prompt():
     while True:
@@ -32,6 +33,7 @@ def prompt():
         else:
             print('Please respond with \'y\' or \'n\' (or \'yes\' or \'no\')')
 
+
 download = True
 if os.path.exists(weights_path):
     print('Weight file already exists at {}. Would you like to redownload it anyway? [y/n]'.format(weights_path))
@@ -42,7 +44,7 @@ else:
 
 if download:
     print('About to download the pretrained weights file from {}'.format(weights_download_link))
-    if already_exists == False:
+    if not already_exists:
         print('The size of the file is roughly 85MB. Continue? [y/n]')
     else:
         os.unlink(weights_path)
@@ -50,9 +52,9 @@ if download:
     if already_exists or prompt():
         print('Downloading...')
 
-        #urllib.urlretrieve(weights_download_link, weights_path)
-        #with open(weights_path,'wb') as f:
-        #    f.write(requests.get(weights_download_link).content)
+        # urllib.urlretrieve(weights_download_link, weights_path)
+        # with open(weights_path,'wb') as f:
+        #     f.write(requests.get(weights_download_link).content)
 
         # downloading using wget due to issues with urlretrieve and requests
         sys_call = 'wget {} -O {}'.format(weights_download_link, os.path.abspath(weights_path))

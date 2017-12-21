@@ -11,9 +11,10 @@ import math
 from deepmoji.model_def import deepmoji_transfer
 from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
 from deepmoji.finetuning import (
-     load_benchmark,
-     finetune)
+    load_benchmark,
+    finetune)
 from deepmoji.class_avg_finetuning import class_avg_finetune
+
 
 def roundup(x):
     return int(math.ceil(x / 10.0)) * 10
@@ -24,15 +25,15 @@ def roundup(x):
 #          nb_classes,
 #          use_f1_score)
 DATASETS = [
-     #('SE0714', '../data/SE0714/raw.pickle', 3, True),
-     #('Olympic', '../data/Olympic/raw.pickle', 4, True),
-     #('PsychExp', '../data/PsychExp/raw.pickle', 7, True),
-     #('SS-Twitter', '../data/SS-Twitter/raw.pickle', 2, False),
-     ('SS-Youtube', '../data/SS-Youtube/raw.pickle', 2, False),
-     #('SE1604', '../data/SE1604/raw.pickle', 3, False), # Excluded due to Twitter's ToS
-     #('SCv1', '../data/SCv1/raw.pickle', 2, True),
-     #('SCv2-GEN', '../data/SCv2-GEN/raw.pickle', 2, True)
-      ]
+    # ('SE0714', '../data/SE0714/raw.pickle', 3, True),
+    # ('Olympic', '../data/Olympic/raw.pickle', 4, True),
+    # ('PsychExp', '../data/PsychExp/raw.pickle', 7, True),
+    # ('SS-Twitter', '../data/SS-Twitter/raw.pickle', 2, False),
+    ('SS-Youtube', '../data/SS-Youtube/raw.pickle', 2, False),
+    # ('SE1604', '../data/SE1604/raw.pickle', 3, False), # Excluded due to Twitter's ToS
+    # ('SCv1', '../data/SCv1/raw.pickle', 2, True),
+    # ('SCv2-GEN', '../data/SCv2-GEN/raw.pickle', 2, True)
+]
 
 RESULTS_DIR = 'results'
 
@@ -75,9 +76,9 @@ for rerun_iter in range(5):
         weight_path = PRETRAINED_PATH if FINETUNE_METHOD != 'new' else None
         nb_model_classes = 2 if use_f1_score else nb_classes
         model = deepmoji_transfer(
-                    nb_model_classes,
-                    data['maxlen'], weight_path,
-                    extend_embedding=data['added'])
+            nb_model_classes,
+            data['maxlen'], weight_path,
+            extend_embedding=data['added'])
         model.summary()
 
         # Training

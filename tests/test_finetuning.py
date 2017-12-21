@@ -13,18 +13,18 @@ from deepmoji.finetuning import (
     relabel,
     finetune,
     load_benchmark
-    )
+)
 from deepmoji.model_def import (
     deepmoji_transfer,
     deepmoji_architecture,
     deepmoji_feature_encoding,
     deepmoji_emojis
-    )
+)
 from deepmoji.global_variables import (
     PRETRAINED_PATH,
     NB_TOKENS,
     VOCAB_PATH
-    )
+)
 
 
 def test_calculate_batchsize_maxlen():
@@ -69,7 +69,7 @@ def test_deepmoji_transfer_extend_embedding():
     """
     extend_with = 50
     model = deepmoji_transfer(5, 30, weight_path=PRETRAINED_PATH,
-                            extend_embedding=extend_with)
+                              extend_embedding=extend_with)
     embedding_layer = model.layers[1]
     assert embedding_layer.input_dim == NB_TOKENS + extend_with
 
@@ -132,7 +132,7 @@ def test_finetune_full():
 
     data = load_benchmark(DATASET_PATH, vocab, extend_with=10000)
     model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH,
-                            extend_embedding=data['added'])
+                              extend_embedding=data['added'])
     model.summary()
     model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                           data['batch_size'], method='full', nb_epochs=1)
@@ -177,13 +177,13 @@ def test_score_emoji():
     ]
 
     expected = [
-        np.array([36,  4,  8, 16, 47]),
+        np.array([36, 4, 8, 16, 47]),
         np.array([1, 19, 55, 25, 46]),
-        np.array([31,  6, 30, 15, 13]),
-        np.array([54, 44,  9, 50, 49]),
-        np.array([46,  5, 27, 35, 34]),
-        np.array([55, 32, 27,  1, 37]),
-        np.array([48, 11,  6, 31,  9])
+        np.array([31, 6, 30, 15, 13]),
+        np.array([54, 44, 9, 50, 49]),
+        np.array([46, 5, 27, 35, 34]),
+        np.array([55, 32, 27, 1, 37]),
+        np.array([48, 11, 6, 31, 9])
     ]
 
     def top_elements(array, k):

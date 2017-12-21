@@ -17,10 +17,10 @@ DATASET_PATHS = [
     '../data/SCv1/raw.pickle',
     '../data/SCv2-GEN/raw.pickle',
     '../data/SE0714/raw.pickle',
-    #'../data/SE1604/raw.pickle', # Excluded due to Twitter's ToS
+    # '../data/SE1604/raw.pickle', # Excluded due to Twitter's ToS
     '../data/SS-Twitter/raw.pickle',
     '../data/SS-Youtube/raw.pickle',
-    ]
+]
 
 with open('../model/vocabulary.json', 'r') as f:
     vocab = json.load(f)
@@ -73,7 +73,7 @@ with open(OUTPUT_PATH, 'wb') as csvfile:
     for i, row in enumerate(results):
         try:
             writer.writerow(row)
-        except:
+        except Exception:
             print("Exception at row {}!".format(i))
 
 print('Saved to {}'.format(OUTPUT_PATH))
