@@ -14,7 +14,7 @@ def test_only_unicode_accepted():
         u'Hello world',
         u'I am unicode',
         'I am not unicode',
-        ]
+    ]
 
     wg = WordGenerator(sentences)
     for w in wg:

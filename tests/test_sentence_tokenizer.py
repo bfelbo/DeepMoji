@@ -17,7 +17,7 @@ dicts = [
     {'label': 7},
     {'label': 8},
     {'label': 9},
-    ]
+]
 
 train_ind = [0, 5, 3, 6, 8]
 val_ind = [9, 2, 1]
@@ -26,6 +26,7 @@ test_ind = [4, 7]
 with open('../model/vocabulary.json', 'r') as f:
     vocab = json.load(f)
 
+
 def test_dataset_split_parameter():
     """ Dataset is split in the desired ratios
     """
@@ -33,7 +34,7 @@ def test_dataset_split_parameter():
     st = SentenceTokenizer(vocab, 30)
 
     result, result_dicts, _ = st.split_train_val_test(sentences, dicts,
-                                               split_parameter, extend_with=0)
+                                                      split_parameter, extend_with=0)
     train = result[0]
     val = result[1]
     test = result[2]
@@ -49,6 +50,7 @@ def test_dataset_split_parameter():
     assert len(train_dicts) == len(dicts) * split_parameter[0]
     assert len(val_dicts) == len(dicts) * split_parameter[1]
     assert len(test_dicts) == len(dicts) * split_parameter[2]
+
 
 def test_dataset_split_explicit():
     """ Dataset is split according to given indices
@@ -84,6 +86,7 @@ def test_dataset_split_explicit():
     assert len(val_dicts) == len(val_ind)
     assert len(test_dicts) == len(test_ind)
 
+
 def test_id_to_sentence():
     """Tokenizing and converting back preserves the input.
     """
@@ -95,6 +98,7 @@ def test_id_to_sentence():
     st = SentenceTokenizer(vb, 30)
     token, _, _ = st.tokenize_sentences([sentence])
     assert st.to_sentence(token[0]) == sentence
+
 
 def test_id_to_sentence_with_unknown():
     """Tokenizing and converting back preserves the input, except for unknowns.
