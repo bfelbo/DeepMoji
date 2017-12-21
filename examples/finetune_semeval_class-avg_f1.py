@@ -42,10 +42,10 @@ data = load_benchmark(DATASET_PATH, vocab, extend_with=10000)
 # defined with two classes, since the model will be trained for each class
 # separately.
 model = deepmoji_transfer(2, data['maxlen'], PRETRAINED_PATH,
-                        extend_embedding=data['added'])
+                          extend_embedding=data['added'])
 model.summary()
 
 # For finetuning however, pass in the actual number of classes.
 model, f1 = class_avg_finetune(model, data['texts'], data['labels'],
-                                nb_classes, data['batch_size'], method='last')
+                               nb_classes, data['batch_size'], method='last')
 print('F1: {}'.format(f1))

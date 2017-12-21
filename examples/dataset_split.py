@@ -30,7 +30,7 @@ DATASET = [
     u'I am sentence 7',
     u'I am sentence 8',
     u'I am sentence 9 newword',
-    ]
+]
 
 INFO_DICTS = [
     {'label': 'sentence 0'},
@@ -43,7 +43,7 @@ INFO_DICTS = [
     {'label': 'sentence 7'},
     {'label': 'sentence 8'},
     {'label': 'sentence 9'},
-    ]
+]
 
 with open('../model/vocabulary.json', 'r') as f:
     vocab = json.load(f)
