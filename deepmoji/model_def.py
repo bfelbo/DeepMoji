@@ -100,7 +100,7 @@ def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
     return model
 
 
-def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, embed_dropout_rate=0, final_dropout_rate=0, embed_l2=1E-6, return_attention=False):
+def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, embed_dropout_rate=0, final_dropout_rate=0, embed_l2=1E-6, return_attention=False, multilabel=False):
     """
     Returns the DeepMoji architecture uninitialized and
     without using the pretrained model weights.
@@ -158,7 +158,7 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
             x = Dropout(final_dropout_rate)(x)
 
         if nb_classes > 2:
-            outputs = [Dense(nb_classes, activation='softmax', name='softmax')(x)]
+            outputs = [Dense(nb_classes, activation='sigmoid' if multilabel else 'softmax', name='softmax')(x)]
         else:
             outputs = [Dense(1, activation='sigmoid', name='softmax')(x)]
     else:
