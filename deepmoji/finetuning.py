@@ -415,7 +415,7 @@ def tune_trainable(model, nb_classes, train, val, test, epoch_size,
     X_val, y_val = val
     X_test, y_test = test
 
-    if nb_classes > 2 and y_train.shape[1] > 1:
+    if nb_classes > 2 and (len(y_train.shape) == 1 or y_train.shape[1] <= 1):
         y_train = to_categorical(y_train)
         y_val = to_categorical(y_val)
         y_test = to_categorical(y_test)
@@ -523,7 +523,7 @@ def chain_thaw(model, nb_classes, train, val, test, batch_size,
     X_val, y_val = val
     X_test, y_test = test
 
-    if nb_classes > 2 and y_train.shape[1] > 1:
+    if nb_classes > 2 and (len(y_train.shape) == 1 or y_train.shape[1] <= 1):
         y_train = to_categorical(y_train)
         y_val = to_categorical(y_val)
         y_test = to_categorical(y_test)
