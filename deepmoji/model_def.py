@@ -61,7 +61,7 @@ def deepmoji_emojis(maxlen, weight_path, return_attention=False):
 
 def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
                       embed_dropout_rate=0.25, final_dropout_rate=0.5,
-                      embed_l2=1E-6):
+                      embed_l2=1E-6, multilabel=False):
     """ Loads the pretrained DeepMoji model for finetuning/transfer learning.
         Does not load weights for the softmax layer.
 
@@ -91,7 +91,8 @@ def deepmoji_transfer(nb_classes, maxlen, weight_path=None, extend_embedding=0,
     model = deepmoji_architecture(nb_classes=nb_classes,
                                   nb_tokens=NB_TOKENS + extend_embedding,
                                   maxlen=maxlen, embed_dropout_rate=embed_dropout_rate,
-                                  final_dropout_rate=final_dropout_rate, embed_l2=embed_l2)
+                                  final_dropout_rate=final_dropout_rate, embed_l2=embed_l2,
+                                  multilabel=multilabel)
 
     if weight_path is not None:
         load_specific_weights(model, weight_path,
