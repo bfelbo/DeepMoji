@@ -70,6 +70,9 @@ This code and the pretrained model is licensed under the MIT license.
 ## Benchmark datasets
 The benchmark datasets are uploaded to this repository for convenience purposes only. They were not released by us and we do not claim any rights on them. Use the datasets at your responsibility and make sure you fulfill the licenses that they were released with. If you use any of the benchmark datasets please consider citing the original authors.
 
+## Twitter dataset
+We sadly cannot release our large Twitter dataset of tweets with emojis due to licensing restrictions.
+
 ## Citation
 ```
 @inproceedings{felbo2017,
