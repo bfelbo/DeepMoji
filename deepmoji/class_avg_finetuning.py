@@ -300,7 +300,7 @@ def class_avg_chainthaw(model, nb_classes, train, val, test, batch_size,
 
         if verbose:
             print("Training..")
-        callbacks = finetuning_callbacks(checkpoint_weight_path, patience=patience)
+        callbacks = finetuning_callbacks(checkpoint_weight_path, patience=patience, verbose=2)
 
         # Train using chain-thaw
         train_by_chain_thaw(model=model, train_gen=train_gen,
