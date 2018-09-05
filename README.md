@@ -1,3 +1,8 @@
+### ------ Update September 2018 ------
+It's now been a year since DeepMoji was released and we're trying to understand how it's being used such that we can make improvements and provide you with better models in the future. 
+
+Please help us achieve this by answering our [4-question Google Form](https://docs.google.com/forms/d/e/1FAIpQLSd_Fmjab6BPgvA1px2C1yZlQKLedi511xASq8-GAQ2IHynZYQ/viewform "DeepMoji Google Form"). Thanks for your support!
+
 # DeepMoji
 
 [![DeepMoji Youtube](https://img.youtube.com/vi/u_JwYxtjzUs/0.jpg)](https://www.youtube.com/watch?v=u_JwYxtjzUs)  
