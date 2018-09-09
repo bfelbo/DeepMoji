@@ -14,7 +14,8 @@ matrix:
       - virtualenv env
       - source env/bin/activate
 install:
-  - pip install flake8 nose tensorflow==1.4.0
+  - pip install nose tensorflow==1.4.0
+  - pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org flake8
   - pip install -e .
 script:
   - flake8 deepmoji examples scripts tests --ignore=F403,E501,E123,E128,E402,F401,F841,F811
