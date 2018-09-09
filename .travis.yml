@@ -13,9 +13,10 @@ matrix:
       before_install:
       - virtualenv env
       - source env/bin/activate
+      - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+      - python get-pip.py
 install:
-  - pip install nose tensorflow==1.4.0
-  - pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org flake8
+  - pip install nose flake8 tensorflow==1.4.0
   - pip install -e .
 script:
   - flake8 deepmoji examples scripts tests --ignore=F403,E501,E123,E128,E402,F401,F841,F811
