@@ -20,6 +20,13 @@ class AttentionWeightedAverage(Layer):
         self.supports_masking = True
         self.return_attention = return_attention
         super(AttentionWeightedAverage, self).__init__(** kwargs)
+        
+    def get_config(self):
+        config = {
+            'return_attention': self.return_attention,
+        }
+        base_config = super(AttentionWeightedAverage, self).get_config()
+        return dict(list(base_config.items()) + list(config.items()))
 
     def build(self, input_shape):
         self.input_spec = [InputSpec(ndim=3)]
