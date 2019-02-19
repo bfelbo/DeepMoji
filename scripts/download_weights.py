@@ -49,7 +49,7 @@ if download:
     else:
         os.unlink(weights_path)
 
-    if already_exists or prompt():
+    if already_exists:
         print('Downloading...')
 
         # urllib.urlretrieve(weights_download_link, weights_path)
