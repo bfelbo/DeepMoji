@@ -27,7 +27,7 @@ from sentence_tokenizer import SentenceTokenizer
 from attlayer import AttentionWeightedAverage
 
 
-def load_benchmark(path, vocab, extend_with=0):
+def load_benchmark(pathOrData, vocab, extend_with=0):
     """ Loads the given benchmark dataset.
 
         Tokenizes the texts using the provided vocabulary, extending it with
@@ -38,7 +38,9 @@ def load_benchmark(path, vocab, extend_with=0):
         suggested batch_size.
 
     # Arguments:
-        path: Path to the dataset to be loaded.
+        pathOrData: Path to the dataset to be loaded. If instead of being passed 
+        a file path, the data (python dict) will be passed. Then will directly
+        use the data.
         vocab: Vocabulary to be used for tokenizing texts.
         extend_with: If > 0, the vocabulary will be extended with up to
             extend_with tokens from the training set before tokenizing.
@@ -54,8 +56,11 @@ def load_benchmark(path, vocab, extend_with=0):
             maxlen: Maximum length of an input.
     """
     # Pre-processing dataset
-    with open(path) as dataset:
-        data = pickle.load(dataset)
+    if not isinstance(pathOrData, dict):
+        with open(pathOrData) as dataset:
+            data = pickle.load(dataset)
+    else:
+        data = pathOrData
 
     # Decode data
     try:
