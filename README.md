@@ -1,6 +1,3 @@
-### ------ This is Jiyuan Zhou's DeepMoji branch ------
-I am currently using it for internship project. Also, I modify the codes according to my needs. All the modifications I make have comments besides them to introduce the reason I modify and how they will be different from original branch.
-21 Feb 2019
 ### ------ Update September 2018 ------
 It's now been a year since DeepMoji was released and we're trying to understand how it's being used such that we can make improvements and provide you with better models in the future. 
 
