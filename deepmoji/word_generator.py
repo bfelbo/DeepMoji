@@ -96,7 +96,7 @@ class WordGenerator():
         """ Returns whether a word is ASCII """
 
         try:
-            word.decode('ascii')
+            word.encode().decode('ascii')
             return True
         except (UnicodeDecodeError, UnicodeEncodeError):
             return False
