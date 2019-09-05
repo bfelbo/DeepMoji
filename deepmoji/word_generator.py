@@ -64,7 +64,7 @@ class WordGenerator():
             that is not allowed.
         """
 
-        if not isinstance(sentence, unicode):
+        if not isinstance(sentence, str):
             raise ValueError("All sentences should be Unicode-encoded!")
         sentence = sentence.strip().lower()
 
@@ -96,7 +96,7 @@ class WordGenerator():
         """ Returns whether a word is ASCII """
 
         try:
-            word.decode('ascii')
+            word.encode().decode('ascii')
             return True
         except (UnicodeDecodeError, UnicodeEncodeError):
             return False

@@ -140,7 +140,7 @@ def shorten_word(word):
 
     # only shorten ASCII words
     try:
-        word.decode('ascii')
+        word.encode().decode('ascii')
     except (UnicodeDecodeError, UnicodeEncodeError) as e:
         return word
 
