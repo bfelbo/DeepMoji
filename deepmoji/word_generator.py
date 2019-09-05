@@ -64,7 +64,7 @@ class WordGenerator():
             that is not allowed.
         """
 
-        if not isinstance(sentence, unicode):
+        if not isinstance(sentence, str):
             raise ValueError("All sentences should be Unicode-encoded!")
         sentence = sentence.strip().lower()
 
