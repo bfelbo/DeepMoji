@@ -2,8 +2,8 @@
 
 """ Use DeepMoji to encode texts into emotional feature vectors.
 """
-from __future__ import print_function, division
-import example_helper
+
+from . import example_helper
 import json
 import csv
 import numpy as np
@@ -11,13 +11,13 @@ from deepmoji.sentence_tokenizer import SentenceTokenizer
 from deepmoji.model_def import deepmoji_feature_encoding
 from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
 
-TEST_SENTENCES = [u'I love mom\'s cooking',
-                  u'I love how you never reply back..',
-                  u'I love cruising with my homies',
-                  u'I love messing with yo mind!!',
-                  u'I love you and now you\'re just gone..',
-                  u'This is shit',
-                  u'This is the shit']
+TEST_SENTENCES = ['I love mom\'s cooking',
+                  'I love how you never reply back..',
+                  'I love cruising with my homies',
+                  'I love messing with yo mind!!',
+                  'I love you and now you\'re just gone..',
+                  'This is shit',
+                  'This is the shit']
 
 maxlen = 30
 batch_size = 32

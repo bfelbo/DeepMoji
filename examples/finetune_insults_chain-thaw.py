@@ -15,8 +15,8 @@ The 'chain-thaw' method does the following:
 4) Unfreeze all layers and train entire model.
 """
 
-from __future__ import print_function
-import example_helper
+
+from . import example_helper
 import json
 from deepmoji.model_def import deepmoji_transfer
 from deepmoji.global_variables import PRETRAINED_PATH

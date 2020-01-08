@@ -1,6 +1,6 @@
 """ Finetuning functions for doing transfer learning to new datasets.
 """
-from __future__ import print_function
+
 
 import sys
 import uuid
@@ -18,13 +18,13 @@ from keras.optimizers import Adam
 from keras.utils.np_utils import to_categorical
 from keras.models import model_from_json
 
-from global_variables import (
+from .global_variables import (
     FINETUNING_METHODS,
     FINETUNING_METRICS,
     WEIGHTS_DIR)
-from tokenizer import tokenize
-from sentence_tokenizer import SentenceTokenizer
-from attlayer import AttentionWeightedAverage
+from .tokenizer import tokenize
+from .sentence_tokenizer import SentenceTokenizer
+from .attlayer import AttentionWeightedAverage
 
 
 def load_benchmark(path, vocab, extend_with=0):
@@ -53,13 +53,27 @@ def load_benchmark(path, vocab, extend_with=0):
             batch_size: Batch size.
             maxlen: Maximum length of an input.
     """
-    # Pre-processing dataset
-    with open(path) as dataset:
+    # # Pre-processing dataset
+    # outsize = 0
+    # with open(path, 'rb') as infile:
+    #     content = infile.read()
+    # import os
+    # path = os.path.split(path)
+    #
+    # unix_path =os.path.join(os.path.altsep.join(path[:-1]), f"unix_fix_{path[-1]}")
+    # with open(unix_path, 'wb') as output:
+    #     for line in content.splitlines():
+    #         outsize += len(line) + 1
+    #         output.write(line + '\n')
+    #
+    # with open(unix_path, "rb") as dataset:
+    #     data = pickle.load(dataset)
+    with open(path, "rb") as dataset:
         data = pickle.load(dataset)
 
     # Decode data
     try:
-        texts = [unicode(x) for x in data['texts']]
+        texts = [str(x) for x in data['texts']]
     except UnicodeDecodeError:
         texts = [x.decode('utf-8') for x in data['texts']]
 
@@ -254,7 +268,7 @@ def sampling_generator(X_in, y_in, batch_size, epoch_size=25000,
         assert epoch_size % 2 == 0
         samples_pr_class = int(epoch_size / 2)
     else:
-        ind = range(len(X_in))
+        ind = list(range(len(X_in)))
 
     # Keep looping until training halts
     while True:

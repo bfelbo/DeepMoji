@@ -1,38 +1,38 @@
 
-from __future__ import print_function, division
+
 import sys
 import numpy as np
 import re
 import string
 import emoji
-from tokenizer import RE_MENTION, RE_URL
-from global_variables import SPECIAL_TOKENS
+from .tokenizer import RE_MENTION, RE_URL
+from .global_variables import SPECIAL_TOKENS
 from itertools import groupby
 
 AtMentionRegex = re.compile(RE_MENTION)
 urlRegex = re.compile(RE_URL)
 
 # from http://bit.ly/2rdjgjE (UTF-8 encodings and Unicode chars)
-VARIATION_SELECTORS = [u'\ufe00',
-                       u'\ufe01',
-                       u'\ufe02',
-                       u'\ufe03',
-                       u'\ufe04',
-                       u'\ufe05',
-                       u'\ufe06',
-                       u'\ufe07',
-                       u'\ufe08',
-                       u'\ufe09',
-                       u'\ufe0a',
-                       u'\ufe0b',
-                       u'\ufe0c',
-                       u'\ufe0d',
-                       u'\ufe0e',
-                       u'\ufe0f']
+VARIATION_SELECTORS = ['\ufe00',
+                       '\ufe01',
+                       '\ufe02',
+                       '\ufe03',
+                       '\ufe04',
+                       '\ufe05',
+                       '\ufe06',
+                       '\ufe07',
+                       '\ufe08',
+                       '\ufe09',
+                       '\ufe0a',
+                       '\ufe0b',
+                       '\ufe0c',
+                       '\ufe0d',
+                       '\ufe0e',
+                       '\ufe0f']
 
 # from https://stackoverflow.com/questions/92438/stripping-non-printable-characters-from-a-string-in-python
-ALL_CHARS = (unichr(i) for i in xrange(sys.maxunicode))
-CONTROL_CHARS = ''.join(map(unichr, range(0, 32) + range(127, 160)))
+ALL_CHARS = (chr(i) for i in range(sys.maxunicode))
+CONTROL_CHARS = ''.join(map(chr, list(range(0, 32)) + list(range(127, 160))))
 CONTROL_CHAR_REGEX = re.compile('[%s]' % re.escape(CONTROL_CHARS))
 
 
@@ -130,7 +130,7 @@ def remove_variation_selectors(text):
         For instance, remove skin color from emojis.
     """
     for var in VARIATION_SELECTORS:
-        text = text.replace(var, u'')
+        text = text.replace(var, '')
     return text
 
 
@@ -141,7 +141,7 @@ def shorten_word(word):
     # only shorten ASCII words
     try:
         word.decode('ascii')
-    except (UnicodeDecodeError, UnicodeEncodeError) as e:
+    except (AttributeError, UnicodeDecodeError, UnicodeEncodeError) as e:
         return word
 
     # must have at least 3 char to be shortened
@@ -188,14 +188,14 @@ def remove_control_chars(text):
 
 def convert_nonbreaking_space(text):
     # ugly hack handling non-breaking space no matter how badly it's been encoded in the input
-    for r in [u'\\\\xc2', u'\\xc2', u'\xc2', u'\\\\xa0', u'\\xa0', u'\xa0']:
-        text = text.replace(r, u' ')
+    for r in ['\\\\xc2', '\\xc2', '\xc2', '\\\\xa0', '\\xa0', '\xa0']:
+        text = text.replace(r, ' ')
     return text
 
 
 def convert_linebreaks(text):
     # ugly hack handling non-breaking space no matter how badly it's been encoded in the input
     # space around to ensure proper tokenization
-    for r in [u'\\\\n', u'\\n', u'\n', u'\\\\r', u'\\r', u'\r', '<br>']:
-        text = text.replace(r, u' ' + SPECIAL_TOKENS[5] + u' ')
+    for r in ['\\\\n', '\\n', '\n', '\\\\r', '\\r', '\r', '<br>']:
+        text = text.replace(r, ' ' + SPECIAL_TOKENS[5] + ' ')
     return text
