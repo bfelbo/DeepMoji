@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import os
 from subprocess import call
 
@@ -27,7 +27,7 @@ def prompt():
         if 'TRAVIS' in os.environ:
             choice = 'yes'
         else:
-            choice = raw_input().lower()
+            choice = input().lower()
         if choice in valid:
             return valid[choice]
         else:
@@ -57,10 +57,17 @@ if download:
         #     f.write(requests.get(weights_download_link).content)
 
         # downloading using wget due to issues with urlretrieve and requests
-        sys_call = 'wget {} -O {}'.format(weights_download_link, os.path.abspath(weights_path))
-        print("Running system call: {}".format(sys_call))
-        call(sys_call, shell=True)
+        # sys_call = 'wget {} -O {}'.format(weights_download_link, os.path.abspath(weights_path))
+        import requests
 
+        resp = requests.get(weights_download_link)
+        print(resp.status_code)
+        print(resp.content)
+        with open(os.path.abspath(weights_path), "wb") as f:
+            f.write(resp.content)
+        # print("Running system call: {}".format(sys_call))
+        # call(sys_call, shell=True)
+        #
         if os.path.getsize(weights_path) / MB_FACTOR < 80:
             raise ValueError("Download finished, but the resulting file is too small! " +
                              "It\'s only {} bytes.".format(os.path.getsize(weights_path)))

@@ -7,13 +7,13 @@ Extend the given vocabulary using dataset-specific words.
 4. Save this combined vocabulary and embedding matrix, which can now be used.
 """
 
-from __future__ import print_function
-import example_helper
+
+from . import example_helper
 import json
 from deepmoji.create_vocab import extend_vocab, VocabBuilder
 from deepmoji.word_generator import WordGenerator
 
-new_words = [u'#zzzzaaazzz', u'newword', u'newword']
+new_words = ['#zzzzaaazzz', 'newword', 'newword']
 word_gen = WordGenerator(new_words)
 vb = VocabBuilder(word_gen)
 vb.count_all_words()
@@ -26,5 +26,5 @@ print(vb.word_counts)
 extend_vocab(vocab, vb, max_tokens=1)
 
 # 'newword' should be added because it's more frequent in the given vocab
-print(vocab[u'newword'])
+print(vocab['newword'])
 print(len(vocab))

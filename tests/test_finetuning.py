@@ -1,4 +1,4 @@
-import test_helper
+import tests.test_helper
 
 from nose.plugins.attrib import attr
 import numpy as np
@@ -137,7 +137,7 @@ def test_finetune_full():
     model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                           data['batch_size'], method='full', nb_epochs=1)
 
-    print("Finetune full SS-Youtube 1 epoch acc: {}".format(acc))
+    print(("Finetune full SS-Youtube 1 epoch acc: {}".format(acc)))
     assert acc >= min_acc
 
 
@@ -159,7 +159,7 @@ def test_finetune_last():
     model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                           data['batch_size'], method='last', nb_epochs=1)
 
-    print("Finetune last SS-Youtube 1 epoch acc: {}".format(acc))
+    print(("Finetune last SS-Youtube 1 epoch acc: {}".format(acc)))
     assert acc >= min_acc
 
 
@@ -167,13 +167,13 @@ def test_score_emoji():
     """ Emoji predictions make sense.
     """
     test_sentences = [
-        u'I love mom\'s cooking',
-        u'I love how you never reply back..',
-        u'I love cruising with my homies',
-        u'I love messing with yo mind!!',
-        u'I love you and now you\'re just gone..',
-        u'This is shit',
-        u'This is the shit'
+        'I love mom\'s cooking',
+        'I love how you never reply back..',
+        'I love cruising with my homies',
+        'I love messing with yo mind!!',
+        'I love you and now you\'re just gone..',
+        'This is shit',
+        'This is the shit'
     ]
 
     expected = [
@@ -210,13 +210,13 @@ def test_encode_texts():
     """ Text encoding is stable.
     """
 
-    TEST_SENTENCES = [u'I love mom\'s cooking',
-                      u'I love how you never reply back..',
-                      u'I love cruising with my homies',
-                      u'I love messing with yo mind!!',
-                      u'I love you and now you\'re just gone..',
-                      u'This is shit',
-                      u'This is the shit']
+    TEST_SENTENCES = ['I love mom\'s cooking',
+                      'I love how you never reply back..',
+                      'I love cruising with my homies',
+                      'I love messing with yo mind!!',
+                      'I love you and now you\'re just gone..',
+                      'This is shit',
+                      'This is the shit']
 
     maxlen = 30
     batch_size = 32

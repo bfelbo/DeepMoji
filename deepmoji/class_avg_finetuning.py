@@ -1,7 +1,7 @@
 """ Class average finetuning functions. Before using any of these finetuning
     functions, ensure that the model is set up with nb_classes=2.
 """
-from __future__ import print_function
+
 
 import sys
 import uuid
@@ -10,10 +10,10 @@ from os.path import dirname
 from time import sleep
 from keras.optimizers import Adam
 
-from global_variables import (
+from .global_variables import (
     FINETUNING_METHODS,
     WEIGHTS_DIR)
-from finetuning import (
+from .finetuning import (
     freeze_layers,
     sampling_generator,
     finetuning_callbacks,

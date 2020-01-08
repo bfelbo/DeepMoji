@@ -1,6 +1,6 @@
 """ Finetuning example.
 """
-from __future__ import print_function
+
 import sys
 import numpy as np
 from os.path import abspath, dirname

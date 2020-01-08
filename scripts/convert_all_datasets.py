@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 
 import json
 import math
@@ -80,7 +80,7 @@ for dset in DATASETS:
 
     # Decode data
     try:
-        texts = [unicode(x) for x in data['texts']]
+        texts = [str(x) for x in data['texts']]
     except UnicodeDecodeError:
         texts = [x.decode('utf-8') for x in data['texts']]
 
