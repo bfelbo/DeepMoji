@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-import sys
-from os.path import dirname, abspath
-sys.path.append(dirname(dirname(abspath(__file__))))
+
 from nose.tools import raises
+
 from deepmoji.word_generator import WordGenerator
 
 

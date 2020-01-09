@@ -1,5 +1,4 @@
 
-import test_helper
 import json
 
 from deepmoji.sentence_tokenizer import SentenceTokenizer

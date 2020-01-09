@@ -1,11 +1,9 @@
-import tests.test_helper
-
-from nose.plugins.attrib import attr
-import numpy as np
 import json
 
+import numpy as np
+from nose.plugins.attrib import attr
+
 from deepmoji.class_avg_finetuning import relabel
-from deepmoji.sentence_tokenizer import SentenceTokenizer
 from deepmoji.finetuning import (
     calculate_batchsize_maxlen,
     freeze_layers,
@@ -14,17 +12,17 @@ from deepmoji.finetuning import (
     finetune,
     load_benchmark
 )
-from deepmoji.model_def import (
-    deepmoji_transfer,
-    deepmoji_architecture,
-    deepmoji_feature_encoding,
-    deepmoji_emojis
-)
 from deepmoji.global_variables import (
     PRETRAINED_PATH,
     NB_TOKENS,
     VOCAB_PATH
 )
+from deepmoji.model_def import (
+    deepmoji_transfer,
+    deepmoji_feature_encoding,
+    deepmoji_emojis
+)
+from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 
 def test_calculate_batchsize_maxlen():

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """ Tokenization tests.
 """
-import sys
+
 from nose.tools import nottest
-from os.path import dirname, abspath
-sys.path.append(dirname(dirname(abspath(__file__))))
+
 from deepmoji.tokenizer import tokenize
 
 TESTS_NORMAL = [
