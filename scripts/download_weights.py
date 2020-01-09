@@ -1,14 +1,16 @@
 
 import os
+from hashlib import sha256
 from os.path import dirname, abspath, join
 
 import requests
-from hashlib import sha256
 
-WEIGHTS_FILENAME = 'deepmoji_weights.hdf5'
-WEIGHTS_PATH = os.path.join(join(dirname(dirname(abspath(__file__))), 'model'), WEIGHTS_FILENAME)
+WEIGHTS_FILENAME = "deepmoji_weights.hdf5"
+MODEL_DIR = join(dirname(dirname(abspath(__file__))), 'model')
+WEIGHTS_PATH = join(MODEL_DIR, WEIGHTS_FILENAME)
+
 WEIGHTS_DOWNLOAD_LINK = 'https://dl.dropboxusercontent.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5'
-FILE_SHA_256 = "ca663315cf4a22ced569cf928f9277ebd013c55d93a19e1d0dde001f59a72476"
+WEIGHTS_FILE_SHA_256 = "ca663315cf4a22ced569cf928f9277ebd013c55d93a19e1d0dde001f59a72476"
 
 
 def prompt():
@@ -54,8 +56,8 @@ if download:
         resp = requests.get(WEIGHTS_DOWNLOAD_LINK)
         m = sha256()
         m.update(resp.content)
-        if (m.hexdigest() != FILE_SHA_256):
-            raise ValueError("Downloaded weights sha256sum: {} is not the expected: {}".format(m.hexdigest(), FILE_SHA_256))
+        if (m.hexdigest() != WEIGHTS_FILE_SHA_256):
+            raise ValueError("Downloaded weights sha256sum: {} is not the expected: {}".format(m.hexdigest(), WEIGHTS_FILE_SHA_256))
         with open(os.path.abspath(WEIGHTS_PATH), "wb") as f:
             f.write(resp.content)
         print('Downloaded weights to: {}'.format(WEIGHTS_PATH))
