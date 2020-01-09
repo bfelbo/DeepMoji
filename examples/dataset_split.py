@@ -14,9 +14,9 @@ An additional parameter can be set 'extend_with', which will extend the given
 vocabulary with up to 'extend_with' tokens, taken from the training dataset.
 '''
 
-from . import example_helper
 import json
 
+from deepmoji.global_variables import VOCAB_PATH
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 DATASET = [
@@ -45,7 +45,7 @@ INFO_DICTS = [
     {'label': 'sentence 9'},
 ]
 
-with open('../model/vocabulary.json', 'r') as f:
+with open(VOCAB_PATH, 'r') as f:
     vocab = json.load(f)
 st = SentenceTokenizer(vocab, 30)
 

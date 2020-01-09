@@ -16,18 +16,17 @@ The class average F1 metric does the following:
 3) Compute the average of all F1 scores.
 """
 
-
-from . import example_helper
 import json
-from deepmoji.finetuning import load_benchmark
+
 from deepmoji.class_avg_finetuning import class_avg_finetune
+from deepmoji.finetuning import load_benchmark
+from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
 from deepmoji.model_def import deepmoji_transfer
-from deepmoji.global_variables import PRETRAINED_PATH
 
 DATASET_PATH = '../data/SE0714/raw.pickle'
 nb_classes = 3
 
-with open('../model/vocabulary.json', 'r') as f:
+with open(VOCAB_PATH, 'r') as f:
     vocab = json.load(f)
 
 

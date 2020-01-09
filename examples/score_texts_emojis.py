@@ -8,13 +8,14 @@ in emoji_overview.png file at the root of the DeepMoji repo.
 Writes the result to a csv file.
 """
 
-from . import example_helper
-import json
 import csv
+import json
+
 import numpy as np
-from deepmoji.sentence_tokenizer import SentenceTokenizer
-from deepmoji.model_def import deepmoji_emojis
+
 from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
+from deepmoji.model_def import deepmoji_emojis
+from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 OUTPUT_PATH = 'test_sentences.csv'
 

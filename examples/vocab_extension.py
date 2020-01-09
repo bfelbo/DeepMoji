@@ -7,10 +7,10 @@ Extend the given vocabulary using dataset-specific words.
 4. Save this combined vocabulary and embedding matrix, which can now be used.
 """
 
-
-from . import example_helper
 import json
+
 from deepmoji.create_vocab import extend_vocab, VocabBuilder
+from deepmoji.global_variables import VOCAB_PATH
 from deepmoji.word_generator import WordGenerator
 
 new_words = ['#zzzzaaazzz', 'newword', 'newword']
@@ -18,7 +18,7 @@ word_gen = WordGenerator(new_words)
 vb = VocabBuilder(word_gen)
 vb.count_all_words()
 
-with open('../model/vocabulary.json') as f:
+with open(VOCAB_PATH) as f:
     vocab = json.load(f)
 
 print(len(vocab))

@@ -2,7 +2,7 @@
 """
 
 import codecs
-from . import example_helper
+
 from deepmoji.create_vocab import VocabBuilder
 from deepmoji.word_generator import TweetWordGenerator
 
