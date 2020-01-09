@@ -1,18 +1,14 @@
 
 import os
-from subprocess import call
+from os.path import dirname, abspath, join
 
-curr_folder = os.path.basename(os.path.normpath(os.getcwd()))
+import requests
+from hashlib import sha256
 
-weights_filename = 'deepmoji_weights.hdf5'
-weights_folder = 'model'
-weights_path = '{}/{}'.format(weights_folder, weights_filename)
-if curr_folder == 'scripts':
-    weights_path = '../' + weights_path
-weights_download_link = 'https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?dl=0#'
-
-
-MB_FACTOR = float(1 << 20)
+WEIGHTS_FILENAME = 'deepmoji_weights.hdf5'
+WEIGHTS_PATH = os.path.join(join(dirname(dirname(abspath(__file__))), 'model'), WEIGHTS_FILENAME)
+WEIGHTS_DOWNLOAD_LINK = 'https://dl.dropboxusercontent.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5'
+FILE_SHA_256 = "ca663315cf4a22ced569cf928f9277ebd013c55d93a19e1d0dde001f59a72476"
 
 
 def prompt():
@@ -35,42 +31,31 @@ def prompt():
 
 
 download = True
-if os.path.exists(weights_path):
-    print('Weight file already exists at {}. Would you like to redownload it anyway? [y/n]'.format(weights_path))
+if os.path.exists(WEIGHTS_PATH):
+    print('Weight file already exists at {}. Would you like to redownload it anyway? [y/n]'.format(WEIGHTS_PATH))
     download = prompt()
     already_exists = True
 else:
     already_exists = False
 
 if download:
-    print('About to download the pretrained weights file from {}'.format(weights_download_link))
+    print('About to download the pretrained weights file from: {}'.format(WEIGHTS_DOWNLOAD_LINK))
     if not already_exists:
         print('The size of the file is roughly 85MB. Continue? [y/n]')
     else:
-        os.unlink(weights_path)
+        os.unlink(WEIGHTS_PATH)
 
     if already_exists or prompt():
         print('Downloading...')
 
-        # urllib.urlretrieve(weights_download_link, weights_path)
-        # with open(weights_path,'wb') as f:
-        #     f.write(requests.get(weights_download_link).content)
+        with open(WEIGHTS_PATH, 'wb') as f:
+            f.write(requests.get(WEIGHTS_DOWNLOAD_LINK).content)
 
-        # downloading using wget due to issues with urlretrieve and requests
-        # sys_call = 'wget {} -O {}'.format(weights_download_link, os.path.abspath(weights_path))
-        import requests
-
-        resp = requests.get(weights_download_link)
-        print(resp.status_code)
-        print(resp.content)
-        with open(os.path.abspath(weights_path), "wb") as f:
+        resp = requests.get(WEIGHTS_DOWNLOAD_LINK)
+        m = sha256()
+        m.update(resp.content)
+        if (m.hexdigest() != FILE_SHA_256):
+            raise ValueError("Downloaded weights sha256sum: {} is not the expected: {}".format(m.hexdigest(), FILE_SHA_256))
+        with open(os.path.abspath(WEIGHTS_PATH), "wb") as f:
             f.write(resp.content)
-        # print("Running system call: {}".format(sys_call))
-        # call(sys_call, shell=True)
-        #
-        if os.path.getsize(weights_path) / MB_FACTOR < 80:
-            raise ValueError("Download finished, but the resulting file is too small! " +
-                             "It\'s only {} bytes.".format(os.path.getsize(weights_path)))
-        print('Downloaded weights to {}'.format(weights_path))
-else:
-    print('Exiting.')
+        print('Downloaded weights to: {}'.format(WEIGHTS_PATH))
