@@ -3,16 +3,19 @@
 
 
 
-from keras.models import Model, Sequential
-from keras.layers.merge import concatenate
-from keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, SpatialDropout1D, LSTM, Activation
-from keras.regularizers import L1L2
-from deepmoji.attlayer import AttentionWeightedAverage
-from deepmoji.global_variables import NB_TOKENS, NB_EMOJI_CLASSES
-import numpy as np
 from copy import deepcopy
 from os.path import exists
+
 import h5py
+import numpy as np
+from keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, \
+    SpatialDropout1D, LSTM, Activation
+from keras.layers.merge import concatenate
+from keras.models import Model
+from keras.regularizers import L1L2
+
+from deepmoji.attlayer import AttentionWeightedAverage
+from deepmoji.global_variables import NB_TOKENS, NB_EMOJI_CLASSES
 
 
 def deepmoji_feature_encoding(maxlen, weight_path, return_attention=False):

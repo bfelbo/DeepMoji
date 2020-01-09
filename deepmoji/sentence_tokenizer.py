@@ -3,14 +3,15 @@ Provides functionality for converting a given list of tokens (words) into
 numbers, according to the given vocabulary.
 '''
 
-
 import numbers
-import numpy as np
-from deepmoji.create_vocab import extend_vocab, VocabBuilder
-from deepmoji.word_generator import WordGenerator
-from deepmoji.global_variables import SPECIAL_TOKENS
-from sklearn.model_selection import train_test_split
 from copy import deepcopy
+
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+from deepmoji.create_vocab import extend_vocab, VocabBuilder
+from deepmoji.global_variables import SPECIAL_TOKENS
+from deepmoji.word_generator import WordGenerator
 
 
 class SentenceTokenizer():

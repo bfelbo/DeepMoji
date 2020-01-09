@@ -1,13 +1,14 @@
 
-
-import sys
-import numpy as np
 import re
 import string
-import emoji
-from deepmoji.tokenizer import RE_MENTION, RE_URL
-from deepmoji.global_variables import SPECIAL_TOKENS
+import sys
 from itertools import groupby
+
+import emoji
+import numpy as np
+
+from deepmoji.global_variables import SPECIAL_TOKENS
+from deepmoji.tokenizer import RE_MENTION, RE_URL
 
 AtMentionRegex = re.compile(RE_MENTION)
 urlRegex = re.compile(RE_URL)

@@ -4,25 +4,23 @@
     filtering/processing of this input.
 '''
 
-
-
 import re
 import unicodedata
+
 import numpy as np
 from text_unidecode import unidecode
-from deepmoji.tokenizer import RE_MENTION, tokenize
+
 from deepmoji.filter_utils import (
     convert_linebreaks,
-    convert_nonbreaking_space,
     correct_length,
     extract_emojis,
     mostly_english,
     non_english_user,
     process_word,
     punct_word,
-    remove_control_chars,
     remove_variation_selectors,
     separate_emojis_and_text)
+from deepmoji.tokenizer import RE_MENTION, tokenize
 
 # Only catch retweets in the beginning of the tweet as those are the
 # automatically added ones.

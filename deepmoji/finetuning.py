@@ -1,26 +1,24 @@
 """ Finetuning functions for doing transfer learning to new datasets.
 """
 
-
+import math
+import pickle
 import uuid
 from time import sleep
 
-import math
-import pickle
 import numpy as np
-
-from keras.layers.wrappers import Bidirectional, TimeDistributed
-from sklearn.metrics import f1_score
 from keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.layers.wrappers import Bidirectional, TimeDistributed
 from keras.optimizers import Adam
 from keras.utils.np_utils import to_categorical
+from sklearn.metrics import f1_score
 
 from deepmoji.global_variables import (
     FINETUNING_METHODS,
     FINETUNING_METRICS,
     WEIGHTS_DIR)
-from deepmoji.tokenizer import tokenize
 from deepmoji.sentence_tokenizer import SentenceTokenizer
+from deepmoji.tokenizer import tokenize
 
 
 def load_benchmark(path, vocab, extend_with=0):

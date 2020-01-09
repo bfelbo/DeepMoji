@@ -2,14 +2,15 @@
 
 import glob
 import json
-import numpy as np
 import uuid
 from collections import defaultdict, OrderedDict
 from copy import deepcopy
 
-from deepmoji.word_generator import WordGenerator
-from deepmoji.global_variables import SPECIAL_TOKENS, VOCAB_PATH
+import numpy as np
+
 from deepmoji.filter_utils import is_special_token
+from deepmoji.global_variables import SPECIAL_TOKENS, VOCAB_PATH
+from deepmoji.word_generator import WordGenerator
 
 
 class VocabBuilder():

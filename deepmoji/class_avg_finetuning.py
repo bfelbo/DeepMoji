@@ -3,19 +3,20 @@
 """
 
 import uuid
-import numpy as np
 from time import sleep
+
+import numpy as np
 from keras.optimizers import Adam
 
-from deepmoji.global_variables import (
-    FINETUNING_METHODS,
-    WEIGHTS_DIR)
 from deepmoji.finetuning import (
     freeze_layers,
     sampling_generator,
     finetuning_callbacks,
     train_by_chain_thaw,
     find_f1_threshold)
+from deepmoji.global_variables import (
+    FINETUNING_METHODS,
+    WEIGHTS_DIR)
 
 
 def relabel(y, current_label_nr, nb_classes):
