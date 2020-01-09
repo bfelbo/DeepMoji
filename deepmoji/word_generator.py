@@ -10,8 +10,8 @@ import re
 import unicodedata
 import numpy as np
 from text_unidecode import unidecode
-from .tokenizer import RE_MENTION, tokenize
-from .filter_utils import (
+from deepmoji.tokenizer import RE_MENTION, tokenize
+from deepmoji.filter_utils import (
     convert_linebreaks,
     convert_nonbreaking_space,
     correct_length,

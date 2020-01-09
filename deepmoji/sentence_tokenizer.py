@@ -6,9 +6,9 @@ numbers, according to the given vocabulary.
 
 import numbers
 import numpy as np
-from .create_vocab import extend_vocab, VocabBuilder
-from .word_generator import WordGenerator
-from .global_variables import SPECIAL_TOKENS
+from deepmoji.create_vocab import extend_vocab, VocabBuilder
+from deepmoji.word_generator import WordGenerator
+from deepmoji.global_variables import SPECIAL_TOKENS
 from sklearn.model_selection import train_test_split
 from copy import deepcopy
 

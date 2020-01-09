@@ -4,11 +4,12 @@ import glob
 import json
 import numpy as np
 import uuid
-from .filter_utils import is_special_token
-from .word_generator import WordGenerator
 from collections import defaultdict, OrderedDict
-from .global_variables import SPECIAL_TOKENS, VOCAB_PATH
 from copy import deepcopy
+
+from deepmoji.word_generator import WordGenerator
+from deepmoji.global_variables import SPECIAL_TOKENS, VOCAB_PATH
+from deepmoji.filter_utils import is_special_token
 
 
 class VocabBuilder():

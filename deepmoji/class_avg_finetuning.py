@@ -2,18 +2,15 @@
     functions, ensure that the model is set up with nb_classes=2.
 """
 
-
-import sys
 import uuid
 import numpy as np
-from os.path import dirname
 from time import sleep
 from keras.optimizers import Adam
 
-from .global_variables import (
+from deepmoji.global_variables import (
     FINETUNING_METHODS,
     WEIGHTS_DIR)
-from .finetuning import (
+from deepmoji.finetuning import (
     freeze_layers,
     sampling_generator,
     finetuning_callbacks,
