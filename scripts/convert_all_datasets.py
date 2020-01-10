@@ -1,17 +1,18 @@
 
-
 import json
 import math
+import os
 import pickle
 import sys
-import numpy as np
-from os.path import abspath, dirname
-sys.path.insert(0, dirname(dirname(abspath(__file__))))
+from os.path import join, dirname, abspath
 
-from deepmoji.word_generator import WordGenerator
+import numpy as np
+
 from deepmoji.create_vocab import VocabBuilder
-from deepmoji.sentence_tokenizer import SentenceTokenizer, extend_vocab, coverage
+from deepmoji.global_variables import VOCAB_PATH
+from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 from deepmoji.tokenizer import tokenize
+from deepmoji.word_generator import WordGenerator
 
 DATASETS = [
     'Olympic',
@@ -24,7 +25,7 @@ DATASETS = [
     'SS-Youtube',
 ]
 
-DIR = '../data'
+DATA_DIR = join(dirname(dirname(abspath(__file__))), 'data')
 FILENAME_RAW = 'raw.pickle'
 FILENAME_OWN = 'own_vocab.pickle'
 FILENAME_OUR = 'twitter_vocab.pickle'
@@ -57,26 +58,25 @@ def convert_dataset(filepath, extend_with, vocab):
                                                   extend_with=extend_with)
     pick = format_pickle(dset, tokenized[0], tokenized[1], tokenized[2],
                          dicts[0], dicts[1], dicts[2])
-    with open(filepath, 'w') as f:
+    with open(filepath, 'wb') as f:
         pickle.dump(pick, f)
     cover = coverage(tokenized[2])
 
     print('     done. Coverage: {}'.format(cover))
 
 
-with open('../model/vocabulary.json', 'r') as f:
+with open(VOCAB_PATH, 'r') as f:
     vocab = json.load(f)
 
 for dset in DATASETS:
     print('Converting {}'.format(dset))
 
-    PATH_RAW = '{}/{}/{}'.format(DIR, dset, FILENAME_RAW)
-    PATH_OWN = '{}/{}/{}'.format(DIR, dset, FILENAME_OWN)
-    PATH_OUR = '{}/{}/{}'.format(DIR, dset, FILENAME_OUR)
-    PATH_COMBINED = '{}/{}/{}'.format(DIR, dset, FILENAME_COMBINED)
-
-    with open(PATH_RAW) as dataset:
-        data = pickle.load(dataset)
+    PATH_RAW = os.path.join(DATA_DIR, dset, FILENAME_RAW)
+    PATH_OWN = os.path.join(DATA_DIR, dset, FILENAME_OWN)
+    PATH_OUR = os.path.join(DATA_DIR, dset, FILENAME_OUR)
+    PATH_COMBINED = os.path.join(DATA_DIR, dset, FILENAME_COMBINED)
+    with open(PATH_RAW, "rb") as dataset:
+        data = pickle.load(dataset, encoding='utf-8')
 
     # Decode data
     try:
