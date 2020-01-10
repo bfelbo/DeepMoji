@@ -16,7 +16,7 @@ class AttentionWeightedAverage(Layer):
         self.supports_masking = True
         self.return_attention = return_attention
         super(AttentionWeightedAverage, self).__init__(** kwargs)
-        
+
     def get_config(self):
         config = {
             'return_attention': self.return_attention,

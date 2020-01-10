@@ -1,8 +1,6 @@
 """ Model definition functions and weight loading.
 """
 
-
-
 from copy import deepcopy
 from os.path import exists
 
@@ -214,8 +212,7 @@ def load_specific_weights(model, weight_path, exclude_names=[], extend_embedding
         try:
             model_l = model.get_layer(name=l_name)
         except ValueError:
-            raise ValueError("Weights had layer {},".format(l_name) +
-                             " but could not find this layer in model.")
+            raise ValueError("Weights had layer {}, but could not find this layer in model.".format(l_name))
 
         if verbose:
             print('Loading weights for {}'.format(l_name))
@@ -227,9 +224,7 @@ def load_specific_weights(model, weight_path, exclude_names=[], extend_embedding
                                                model_l.get_weights())
             model_l.set_weights(comb_weights)
             if verbose:
-                print('Extended vocabulary for embedding layer ' +
-                      'from {} to {} tokens.'.format(
-                          NB_TOKENS, NB_TOKENS + extend_embedding))
+                print('Extended vocabulary for embedding layer from {} to {} tokens.'.format(NB_TOKENS, NB_TOKENS + extend_embedding))
         else:
             model_l.set_weights(weight_values)
 

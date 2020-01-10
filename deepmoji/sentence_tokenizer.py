@@ -81,8 +81,7 @@ class SentenceTokenizer():
         if self.masking_value == 0:
             tokens = np.zeros((n_sentences, self.fixed_length), dtype='uint16')
         else:
-            tokens = (np.ones((n_sentences, self.fixed_length), dtype='uint16') *
-                      self.masking_value)
+            tokens = (np.ones((n_sentences, self.fixed_length), dtype='uint16') * self.masking_value)
 
         if reset_stats:
             self.wordgen.reset_stats()
@@ -98,8 +97,7 @@ class SentenceTokenizer():
         for s_words, s_info in self.wordgen:
             s_tokens = self.find_tokens(s_words)
 
-            if (self.ignore_sentences_with_only_custom and
-                np.all([True if t < len(SPECIAL_TOKENS)
+            if (self.ignore_sentences_with_only_custom and np.all([True if t < len(SPECIAL_TOKENS)
                         else False for t in s_tokens])):
                 n_ignored_unknowns += 1
                 continue
@@ -164,8 +162,7 @@ class SentenceTokenizer():
 
             # Helper function to verify provided indices are numbers in range
             def verify_indices(inds):
-                return list([i for i in inds if isinstance(i, numbers.Number) and
-                                   i < len(sentences)])
+                return list([i for i in inds if isinstance(i, numbers.Number) and i < len(sentences)])
 
             ind_train = verify_indices(split_parameter[0])
             ind_val = verify_indices(split_parameter[1])

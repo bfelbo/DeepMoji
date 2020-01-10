@@ -1,25 +1,99 @@
-dist: trusty
 language: python
+
 notifications:
   email: false
-cache:
-  pip: true
-matrix:
-  include:
-    - python: 2.7
-    - os: osx
-      osx_image: xcode9.1
-      language: generic
-      before_install:
-      - virtualenv env
-      - source env/bin/activate
-      - curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-      - python get-pip.py
+
+cache: pip
+
+stages:
+  - lint
+  - test
+  - build
+
+before_install:
+  - pip install nose coverage codecov
+
 install:
-  - pip install nose flake8 tensorflow==1.4.0
-  - pip install -e .
-script:
-  - flake8 deepmoji examples scripts tests --ignore=F403,E501,E123,E128,E402,F401,F841,F811
+  - pip install -e .[tensorflow_backend]
+
+before_script:
   - python scripts/download_weights.py
-  - cd tests
-  - nosetests -v
+script:
+  - nosetests -v --with-coverage --cover-package=deepmoji
+
+after_success:
+  - codecov
+
+jobs:
+  include:
+    - stage: lint
+      name: "flake8"
+      python:
+        - 3.6
+      before_install:
+        - pip install flake8
+      before_script: skip
+      script:
+        - flake8 deepmoji examples scripts tests --ignore=F403,E501,E123,E128,E402,F401,F841,F811
+      after_script: skip
+    - name: "twine check"
+      python:
+        - 3.6
+      before_install:
+        - pip install docutils twine
+      before_script:
+        - python setup.py sdist
+      script:
+        - twine check dist/*
+      after_script: skip
+    - stage: test
+      python: 3.6
+    - os: osx
+      language: sh
+      env:
+        - TOXENV=py3
+        - HOMEBREW_NO_INSTALL_CLEANUP=1
+        - HOMEBREW_NO_ANALYTICS=1
+      before_cache:
+        # - brew cleanup
+        - rm -f "$HOME/Library/Caches/pip/log/debug.log"
+      cache:
+        directories:
+          # - "$HOME/Library/Caches/Homebrew"
+          - "$HOME/Library/Caches/pip"
+      addons:
+        homebrew:
+          # update: true
+          packages: python3
+      before_install:
+        - python3 -m pip install --upgrade virtualenv
+        - virtualenv -p python3 --system-site-packages "$HOME/venv"
+        - source "$HOME/venv/bin/activate"
+        - python -m pip install nose coverage codecov
+    - os: windows
+      language: sh
+      python: "3.7"
+      before_install:
+        - choco install python --version 3.7.2
+        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - python -m pip install --upgrade pip wheel
+        - python -m pip install nose coverage codecov
+      after_success:
+        - python -m codecov
+    - stage: build
+      name: "sdist"
+      python:
+        - 3.6
+      before_script: skip
+      script:
+        - python setup.py sdist
+      after_script: skip
+    - name: "bdist_wheel"
+      python:
+        - 3.6
+      install:
+        - pip install . wheel
+      before_script: skip
+      script:
+        - python setup.py bdist_wheel
+      after_script: skip

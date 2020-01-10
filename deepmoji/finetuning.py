@@ -149,8 +149,7 @@ def freeze_layers(model, unfrozen_types=[], unfrozen_keyword=None):
     """
     for l in model.layers:
         if len(l.trainable_weights):
-            trainable = (type(l) in unfrozen_types or
-                         (unfrozen_keyword is not None and unfrozen_keyword in l.name))
+            trainable = (type(l) in unfrozen_types or (unfrozen_keyword is not None and unfrozen_keyword in l.name))
             change_trainable(l, trainable, verbose=False)
     return model
 

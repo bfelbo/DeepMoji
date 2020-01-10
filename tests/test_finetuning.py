@@ -1,4 +1,5 @@
 import json
+from os.path import dirname, abspath, join
 
 import numpy as np
 from nose.plugins.attrib import attr
@@ -120,7 +121,9 @@ def test_relabel_binary():
     assert np.array_equal(relabel(inputs, 0, nb_classes), inputs)
 
 
-DATASET_PATH = '../data/SS-Youtube/raw.pickle'
+DATA_DIR = join(dirname(dirname(abspath(__file__))), 'data')
+SS_YOUTUBE_DATASET_DIR = join(DATA_DIR, "SS-Youtube")
+SS_YOUTUBE_DATASET_PATH = join(SS_YOUTUBE_DATASET_DIR, "raw.pickle")
 
 
 @attr('slow')
@@ -130,14 +133,14 @@ def test_finetune_full():
     nb_classes = 2
     min_acc = 0.65
 
-    data = load_benchmark(DATASET_PATH, get_vocabulary(), extend_with=10000)
+    data = load_benchmark(SS_YOUTUBE_DATASET_PATH, get_vocabulary(), extend_with=10000)
     model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH,
                               extend_embedding=data['added'])
     model.summary()
     model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                           data['batch_size'], method='full', nb_epochs=1)
 
-    print(("Finetune full SS-Youtube 1 epoch acc: {}".format(acc)))
+    print("Finetune full SS-Youtube 1 epoch acc: {}".format(acc))
     assert acc >= min_acc
 
 
@@ -148,7 +151,7 @@ def test_finetune_last():
     nb_classes = 2
     min_acc = 0.65
 
-    data = load_benchmark(DATASET_PATH, get_vocabulary())
+    data = load_benchmark(SS_YOUTUBE_DATASET_PATH, get_vocabulary())
 
     model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH)
     model.summary()
@@ -168,43 +171,45 @@ TEST_SENTENCES = [
     'This is shit',
     'This is the shit'
 ]
-TEST_SENTENCES_EXPECTED_EMOJI_INDEXES = [
-    np.array([36, 4, 8, 16, 47]),
-    np.array([1, 19, 55, 25, 46]),
-    np.array([31, 6, 30, 15, 13]),
-    np.array([54, 44, 9, 50, 49]),
-    np.array([46, 5, 27, 35, 34]),
-    np.array([55, 32, 27, 1, 37]),
-    np.array([48, 11, 6, 31, 9])
-]
 
 
 def top_elements(array, k):
+    """Given an array of emoji probabilities get the top k emoji indexes
+    for the highest probability emojis"""
     ind = np.argpartition(array, -k)[-k:]
     return ind[np.argsort(array[ind])][::-1]
-
-
-MAXLEN = 30
 
 
 def test_score_emoji():
     """ Emoji predictions make sense.
     """
-    st = SentenceTokenizer(get_vocabulary(), MAXLEN)
+    maxlen = 30
+    expected = [
+        np.array([36, 4, 8, 16, 47]),
+        np.array([1, 19, 55, 25, 46]),
+        np.array([31, 6, 30, 15, 13]),
+        np.array([54, 44, 9, 50, 49]),
+        np.array([46, 5, 27, 35, 34]),
+        np.array([55, 32, 27, 1, 37]),
+        np.array([48, 11, 6, 31, 9])
+    ]
+
+    st = SentenceTokenizer(get_vocabulary(), fixed_length=maxlen)
     tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
-    model = deepmoji_emojis(maxlen=MAXLEN, weight_path=PRETRAINED_PATH)
+    model = deepmoji_emojis(maxlen=maxlen, weight_path=PRETRAINED_PATH)
     prob = model.predict(tokenized)
     # Find top emojis for each sentence
     for i, t_prob in enumerate(prob):
-        assert np.array_equal(top_elements(t_prob, 5), TEST_SENTENCES_EXPECTED_EMOJI_INDEXES[i])
+        assert np.array_equal(top_elements(t_prob, 5), expected[i])
 
 
 def test_encode_texts():
     """ Text encoding is stable.
     """
-    st = SentenceTokenizer(get_vocabulary(), MAXLEN)
+    maxlen = 30
+    st = SentenceTokenizer(get_vocabulary(), fixed_length=maxlen)
     tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
-    model = deepmoji_feature_encoding(maxlen=MAXLEN, weight_path=PRETRAINED_PATH)
+    model = deepmoji_feature_encoding(maxlen=maxlen, weight_path=PRETRAINED_PATH)
     prob = model.predict(tokenized)
     avg_across_sentences = np.around(np.mean(prob, axis=0)[:5], 3)
     assert np.allclose(avg_across_sentences, np.array([-0.023, 0.021, -0.037, -0.001, -0.005]))

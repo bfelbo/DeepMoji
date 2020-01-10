@@ -1,6 +1,7 @@
 
 import json
 
+from deepmoji.global_variables import VOCAB_PATH
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 sentences = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
@@ -22,7 +23,7 @@ train_ind = [0, 5, 3, 6, 8]
 val_ind = [9, 2, 1]
 test_ind = [4, 7]
 
-with open('../model/vocabulary.json', 'r') as f:
+with open(VOCAB_PATH, 'r') as f:
     vocab = json.load(f)
 
 
@@ -89,9 +90,11 @@ def test_dataset_split_explicit():
 def test_id_to_sentence():
     """Tokenizing and converting back preserves the input.
     """
-    vb = {'CUSTOM_MASK': 0,
-          'aasdf': 1000,
-          'basdf': 2000}
+    vb = {
+        'CUSTOM_MASK': 0,
+        'aasdf': 1000,
+        'basdf': 2000
+    }
 
     sentence = 'aasdf basdf basdf basdf'
     st = SentenceTokenizer(vb, 30)
@@ -102,10 +105,12 @@ def test_id_to_sentence():
 def test_id_to_sentence_with_unknown():
     """Tokenizing and converting back preserves the input, except for unknowns.
     """
-    vb = {'CUSTOM_MASK': 0,
-          'CUSTOM_UNKNOWN': 1,
-          'aasdf': 1000,
-          'basdf': 2000}
+    vb = {
+        'CUSTOM_MASK': 0,
+        'CUSTOM_UNKNOWN': 1,
+        'aasdf': 1000,
+        'basdf': 2000
+    }
 
     sentence = 'aasdf basdf ccc'
     expected = 'aasdf basdf CUSTOM_UNKNOWN'
