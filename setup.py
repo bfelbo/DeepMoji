@@ -21,11 +21,6 @@ setup(
     tests_require=[
         "nose",
     ],
-    extras_require={
-        "scripts": [
-            "requests",
-        ],
-    },
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
