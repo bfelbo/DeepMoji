@@ -13,7 +13,11 @@ from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 OUTPUT_PATH = 'coverage.csv'
 DATASET_PATHS = [
     '../data/Olympic/raw.pickle',
-    '../data/PsychExp/raw.pickle',
+    # TODO: issues on calling pick.load on this file
+    #   File .../calculate_coverages.py", line 29, in <module>
+    #       s = pickle.load(f)
+    #   _pickle.UnpicklingError: pickle data was truncated
+    # '../data/PsychExp/raw.pickle',
     '../data/SCv1/raw.pickle',
     '../data/SCv2-GEN/raw.pickle',
     '../data/SE0714/raw.pickle',
