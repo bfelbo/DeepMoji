@@ -17,6 +17,11 @@ setup(
     tests_require=[
         "nose>=1.3.7,<2.0.0",
     ],
+    extras_require={
+        "tensorflow_backend": [
+            "tensorflow>=2.0.0,!=2.1.0,<3.0.0",  # tensorflow==2.1.0 has import issues on windows
+        ],
+    },
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
