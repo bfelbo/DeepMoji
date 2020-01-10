@@ -25,6 +25,11 @@ from deepmoji.model_def import (
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 
+def get_vocabulary():
+    with open(VOCAB_PATH, 'r') as f:
+        return json.load(f)
+
+
 def test_calculate_batchsize_maxlen():
     """ Batch size and max length are calculated properly.
     """
@@ -125,10 +130,7 @@ def test_finetune_full():
     nb_classes = 2
     min_acc = 0.65
 
-    with open('../model/vocabulary.json', 'r') as f:
-        vocab = json.load(f)
-
-    data = load_benchmark(DATASET_PATH, vocab, extend_with=10000)
+    data = load_benchmark(DATASET_PATH, get_vocabulary(), extend_with=10000)
     model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH,
                               extend_embedding=data['added'])
     model.summary()
@@ -147,10 +149,7 @@ def test_finetune_last():
     nb_classes = 2
     min_acc = 0.65
 
-    with open('../model/vocabulary.json', 'r') as f:
-        vocab = json.load(f)
-
-    data = load_benchmark(DATASET_PATH, vocab)
+    data = load_benchmark(DATASET_PATH, get_vocabulary())
 
     model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH)
     model.summary()
@@ -189,10 +188,7 @@ def test_score_emoji():
         return ind[np.argsort(array[ind])][::-1]
 
     # Initialize by loading dictionary and tokenize texts
-    with open(VOCAB_PATH, 'r') as f:
-        vocabulary = json.load(f)
-
-    st = SentenceTokenizer(vocabulary, 30)
+    st = SentenceTokenizer(get_vocabulary(), 30)
     tokenized, _, _ = st.tokenize_sentences(test_sentences)
 
     # Load model and run
@@ -218,9 +214,7 @@ def test_encode_texts():
 
     maxlen = 30
 
-    with open(VOCAB_PATH, 'r') as f:
-        vocabulary = json.load(f)
-    st = SentenceTokenizer(vocabulary, maxlen)
+    st = SentenceTokenizer(get_vocabulary(), maxlen)
     tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
 
     model = deepmoji_feature_encoding(maxlen, PRETRAINED_PATH)
