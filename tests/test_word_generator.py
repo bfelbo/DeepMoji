@@ -14,7 +14,6 @@ def test_only_unicode_accepted():
         'I am unicode',
         'I am not unicode'.encode("ASCII"),
     ]
-
     wg = WordGenerator(sentences)
     for w in wg:
         pass
@@ -41,7 +40,6 @@ def test_convert_unicode_word():
     """ convert_unicode_word converts Unicode words correctly.
     """
     wg = WordGenerator([], allow_unicode_text=True)
-
     result = wg.convert_unicode_word('č')
     assert result == (True, '\u010d'), '{}'.format(result)
 
@@ -50,7 +48,6 @@ def test_convert_unicode_word_ignores_if_set():
     """ convert_unicode_word ignores Unicode words if set.
     """
     wg = WordGenerator([], allow_unicode_text=False)
-
     result = wg.convert_unicode_word('č')
     assert result == (False, ''), '{}'.format(result)
 
