@@ -1,5 +1,4 @@
-
-
+import os
 import sys
 import glob
 import numpy as np
@@ -12,8 +11,8 @@ if len(sys.argv) == 3:
     DATASET = sys.argv[1]
     METHOD = sys.argv[2]
 
-RESULTS_DIR = 'results/'
-RESULT_PATHS = glob.glob('{}/{}_{}_*_results.txt'.format(RESULTS_DIR, DATASET, METHOD))
+RESULTS_DIR = 'results'
+RESULT_PATHS = glob.glob(os.path.join(RESULTS_DIR, "{}_{}_*_results.txt".format(DATASET, METHOD)))
 
 if not RESULT_PATHS:
     print('Could not find results for \'{}\' using \'{}\' in directory \'{}\'.'.format(DATASET, METHOD, RESULTS_DIR))
