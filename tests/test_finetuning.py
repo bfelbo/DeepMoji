@@ -33,12 +33,10 @@ def get_vocabulary():
 def test_calculate_batchsize_maxlen():
     """ Batch size and max length are calculated properly.
     """
-    texts = ['a b c d',
-             'e f g h i']
+    texts = ['a b c d', 'e f g h i']
     batch_size, maxlen = calculate_batchsize_maxlen(texts)
-
     assert batch_size == 250
-    assert maxlen == 10, maxlen
+    assert maxlen == 10
 
 
 def test_freeze_layers():
@@ -122,11 +120,13 @@ def test_relabel_binary():
     assert np.array_equal(relabel(inputs, 0, nb_classes), inputs)
 
 
+DATASET_PATH = '../data/SS-Youtube/raw.pickle'
+
+
 @attr('slow')
 def test_finetune_full():
     """ finetuning using 'full'.
     """
-    DATASET_PATH = '../data/SS-Youtube/raw.pickle'
     nb_classes = 2
     min_acc = 0.65
 
@@ -145,7 +145,6 @@ def test_finetune_full():
 def test_finetune_last():
     """ finetuning using 'last'.
     """
-    DATASET_PATH = '../data/SS-Youtube/raw.pickle'
     nb_classes = 2
     min_acc = 0.65
 
@@ -160,65 +159,52 @@ def test_finetune_last():
     assert acc >= min_acc
 
 
+TEST_SENTENCES = [
+    'I love mom\'s cooking',
+    'I love how you never reply back..',
+    'I love cruising with my homies',
+    'I love messing with yo mind!!',
+    'I love you and now you\'re just gone..',
+    'This is shit',
+    'This is the shit'
+]
+TEST_SENTENCES_EXPECTED_EMOJI_INDEXES = [
+    np.array([36, 4, 8, 16, 47]),
+    np.array([1, 19, 55, 25, 46]),
+    np.array([31, 6, 30, 15, 13]),
+    np.array([54, 44, 9, 50, 49]),
+    np.array([46, 5, 27, 35, 34]),
+    np.array([55, 32, 27, 1, 37]),
+    np.array([48, 11, 6, 31, 9])
+]
+
+
+def top_elements(array, k):
+    ind = np.argpartition(array, -k)[-k:]
+    return ind[np.argsort(array[ind])][::-1]
+
+
+MAXLEN = 30
+
+
 def test_score_emoji():
     """ Emoji predictions make sense.
     """
-    test_sentences = [
-        'I love mom\'s cooking',
-        'I love how you never reply back..',
-        'I love cruising with my homies',
-        'I love messing with yo mind!!',
-        'I love you and now you\'re just gone..',
-        'This is shit',
-        'This is the shit'
-    ]
-
-    expected = [
-        np.array([36, 4, 8, 16, 47]),
-        np.array([1, 19, 55, 25, 46]),
-        np.array([31, 6, 30, 15, 13]),
-        np.array([54, 44, 9, 50, 49]),
-        np.array([46, 5, 27, 35, 34]),
-        np.array([55, 32, 27, 1, 37]),
-        np.array([48, 11, 6, 31, 9])
-    ]
-
-    def top_elements(array, k):
-        ind = np.argpartition(array, -k)[-k:]
-        return ind[np.argsort(array[ind])][::-1]
-
-    # Initialize by loading dictionary and tokenize texts
-    st = SentenceTokenizer(get_vocabulary(), 30)
-    tokenized, _, _ = st.tokenize_sentences(test_sentences)
-
-    # Load model and run
-    model = deepmoji_emojis(maxlen=30, weight_path=PRETRAINED_PATH)
+    st = SentenceTokenizer(get_vocabulary(), MAXLEN)
+    tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
+    model = deepmoji_emojis(maxlen=MAXLEN, weight_path=PRETRAINED_PATH)
     prob = model.predict(tokenized)
-
     # Find top emojis for each sentence
     for i, t_prob in enumerate(prob):
-        assert np.array_equal(top_elements(t_prob, 5), expected[i])
+        assert np.array_equal(top_elements(t_prob, 5), TEST_SENTENCES_EXPECTED_EMOJI_INDEXES[i])
 
 
 def test_encode_texts():
     """ Text encoding is stable.
     """
-
-    TEST_SENTENCES = ['I love mom\'s cooking',
-                      'I love how you never reply back..',
-                      'I love cruising with my homies',
-                      'I love messing with yo mind!!',
-                      'I love you and now you\'re just gone..',
-                      'This is shit',
-                      'This is the shit']
-
-    maxlen = 30
-
-    st = SentenceTokenizer(get_vocabulary(), maxlen)
+    st = SentenceTokenizer(get_vocabulary(), MAXLEN)
     tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
-
-    model = deepmoji_feature_encoding(maxlen, PRETRAINED_PATH)
-
-    encoding = model.predict(tokenized)
-    avg_across_sentences = np.around(np.mean(encoding, axis=0)[:5], 3)
+    model = deepmoji_feature_encoding(maxlen=MAXLEN, weight_path=PRETRAINED_PATH)
+    prob = model.predict(tokenized)
+    avg_across_sentences = np.around(np.mean(prob, axis=0)[:5], 3)
     assert np.allclose(avg_across_sentences, np.array([-0.023, 0.021, -0.037, -0.001, -0.005]))
