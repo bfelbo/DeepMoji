@@ -217,7 +217,6 @@ def test_encode_texts():
                       'This is the shit']
 
     maxlen = 30
-    batch_size = 32
 
     with open(VOCAB_PATH, 'r') as f:
         vocabulary = json.load(f)
