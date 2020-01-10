@@ -6,7 +6,7 @@ setup(
     packages=['deepmoji'],
     description='DeepMoji library',
     long_description=open("README.md", encoding="UTF-8").read(),
-    long_descrition_content_type='text/markdown',
+    long_description_content_type='text/markdown',
     license="MIT",
     include_package_data=True,
     install_requires=[
