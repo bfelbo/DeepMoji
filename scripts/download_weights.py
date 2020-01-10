@@ -1,9 +1,8 @@
 
 import os
+import urllib.request
 from hashlib import sha256
 from os.path import dirname, abspath, join
-
-import urllib.request
 
 WEIGHTS_FILENAME = "deepmoji_weights.hdf5"
 MODEL_DIR = join(dirname(dirname(abspath(__file__))), 'model')
