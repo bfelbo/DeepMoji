@@ -1,11 +1,8 @@
 
-
-# allow us to import the codebase/keras directory
-import sys
 import glob
+import os
+
 import numpy as np
-from os.path import dirname, abspath
-sys.path.insert(0, dirname(dirname(abspath(__file__))))
 
 DATASETS = [
     'SE0714',
@@ -20,8 +17,8 @@ DATASETS = [
 
 def get_results(dset):
     METHOD = 'last'
-    RESULTS_DIR = 'results/'
-    RESULT_PATHS = glob.glob('{}/{}_{}_*_results.txt'.format(RESULTS_DIR, dset, METHOD))
+    RESULTS_DIR = 'results'
+    RESULT_PATHS = glob.glob(os.path.join(RESULTS_DIR, '{}_{}_*_results.txt'.format(dset, METHOD)))
     assert len(RESULT_PATHS)
 
     scores = []
