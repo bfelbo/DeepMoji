@@ -15,7 +15,11 @@ from deepmoji.tokenizer import tokenize
 
 DATASETS = [
     'Olympic',
-    'PsychExp',
+    # TODO: error loading this dataset's pickle
+    #   File ".../convert_all_datasets.py", line 81, in <module>
+    #       data = pickle.load(dataset, encoding='utf-8')
+    #   _pickle.UnpicklingError: the STRING opcode argument must be quoted
+    # 'PsychExp',
     'SCv1',
     'SCv2-GEN',
     'SE0714',
