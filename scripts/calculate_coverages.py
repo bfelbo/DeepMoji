@@ -2,12 +2,8 @@
 import pickle
 import json
 import csv
-import sys
 
-# Allow us to import the deepmoji directory
-from os.path import dirname, abspath
-sys.path.insert(0, dirname(dirname(abspath(__file__))))
-
+from deepmoji.global_variables import VOCAB_PATH
 from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 
 OUTPUT_PATH = 'coverage.csv'
@@ -26,15 +22,17 @@ DATASET_PATHS = [
     '../data/SS-Youtube/raw.pickle',
 ]
 
-with open('../model/vocabulary.json', 'r') as f:
+with open(VOCAB_PATH, 'r') as f:
     vocab = json.load(f)
 
 results = []
 for p in DATASET_PATHS:
     coverage_result = [p]
     print('Calculating coverage for {}'.format(p))
-    with open(p) as f:
-        s = pickle.load(f)
+    with open(p, 'rb') as f:
+        # TODO: using encoding="utf-8" lets this work in python3 but
+        #  other consequences of change are unknown
+        s = pickle.load(f, encoding="utf-8")
 
     # Decode data
     try:
@@ -71,7 +69,7 @@ for p in DATASET_PATHS:
 
     results.append(coverage_result)
 
-with open(OUTPUT_PATH, 'wb') as csvfile:
+with open(OUTPUT_PATH, 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter='\t', lineterminator='\n')
     writer.writerow(['Dataset', 'Own', 'Last', 'Full'])
     for i, row in enumerate(results):
