@@ -47,21 +47,7 @@ def load_benchmark(path, vocab, extend_with=0):
             batch_size: Batch size.
             maxlen: Maximum length of an input.
     """
-    # # Pre-processing dataset
-    # outsize = 0
-    # with open(path, 'rb') as infile:
-    #     content = infile.read()
-    # import os
-    # path = os.path.split(path)
-    #
-    # unix_path =os.path.join(os.path.altsep.join(path[:-1]), f"unix_fix_{path[-1]}")
-    # with open(unix_path, 'wb') as output:
-    #     for line in content.splitlines():
-    #         outsize += len(line) + 1
-    #         output.write(line + '\n')
-    #
-    # with open(unix_path, "rb") as dataset:
-    #     data = pickle.load(dataset)
+    # Pre-processing dataset
     with open(path, "rb") as dataset:
         data = pickle.load(dataset)
 
