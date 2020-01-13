@@ -3,8 +3,6 @@
 """ Use DeepMoji to encode texts into emotional feature vectors.
 """
 
-import json
-
 from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH, \
     get_vocabulary
 from deepmoji.model_def import deepmoji_feature_encoding
