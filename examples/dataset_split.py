@@ -14,9 +14,7 @@ An additional parameter can be set 'extend_with', which will extend the given
 vocabulary with up to 'extend_with' tokens, taken from the training dataset.
 '''
 
-import json
-
-from deepmoji.global_variables import VOCAB_PATH
+from deepmoji.global_variables import get_vocabulary
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 DATASET = [
@@ -45,9 +43,7 @@ INFO_DICTS = [
     {'label': 'sentence 9'},
 ]
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
-st = SentenceTokenizer(vocab, 30)
+st = SentenceTokenizer(get_vocabulary(), 30)
 
 # Split using the default split ratio
 print(st.split_train_val_test(DATASET, INFO_DICTS))
