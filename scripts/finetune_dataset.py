@@ -17,10 +17,7 @@ def roundup(x):
     return int(math.ceil(x / 10.0)) * 10
 
 
-# Format: (dataset_name,
-#          path_to_dataset,
-#          nb_classes,
-#          use_f1_score)
+# Format: (dataset_name, path_to_dataset, nb_classes, use_f1_score)
 DATASETS = [
     # ('SE0714', '../data/SE0714/raw.pickle', 3, True),
     # ('Olympic', '../data/Olympic/raw.pickle', 4, True),
