@@ -1,0 +1,5 @@
+# misc generated pickles
+*/*.pickle
+
+# base pickles required for examples/ and scripts/
+!*/raw.pickle
