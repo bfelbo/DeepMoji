@@ -4,15 +4,10 @@ number corresponds to a word. Padding is used (number 0) to ensure fixed length
 of sentences.
 """
 
-import json
-
-from deepmoji.global_variables import VOCAB_PATH
+from deepmoji.global_variables import get_vocabulary
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
-with open(VOCAB_PATH, 'r') as f:
-    vocabulary = json.load(f)
-
-st = SentenceTokenizer(vocabulary, 30)
+st = SentenceTokenizer(get_vocabulary(), 30)
 test_sentences = [
     '\u2014 -- \u203c !!\U0001F602',
     'Hello world!',

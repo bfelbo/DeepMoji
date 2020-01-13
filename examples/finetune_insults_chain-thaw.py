@@ -20,18 +20,15 @@ import json
 from deepmoji.finetuning import (
     load_benchmark,
     finetune)
-from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
+from deepmoji.global_variables import PRETRAINED_PATH, get_vocabulary
 from deepmoji.model_def import deepmoji_transfer
 
 DATASET_PATH = '../data/kaggle-insults/raw.pickle'
 nb_classes = 2
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
-
 # Load dataset. Extend the existing vocabulary with up to 10000 tokens from
 # the training dataset.
-data = load_benchmark(DATASET_PATH, vocab, extend_with=10000)
+data = load_benchmark(DATASET_PATH, get_vocabulary(), extend_with=10000)
 
 # Set up model and finetune. Note that we have to extend the embedding layer
 # with the number of tokens added to the vocabulary.

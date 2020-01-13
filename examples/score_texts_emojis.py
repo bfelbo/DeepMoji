@@ -9,11 +9,11 @@ Writes the result to a csv file.
 """
 
 import csv
-import json
 
 import numpy as np
 
-from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
+from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH, \
+    get_vocabulary
 from deepmoji.model_def import deepmoji_emojis
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
@@ -37,9 +37,7 @@ maxlen = 30
 batch_size = 32
 
 print('Tokenizing using dictionary from {}'.format(VOCAB_PATH))
-with open(VOCAB_PATH, 'r') as f:
-    vocabulary = json.load(f)
-st = SentenceTokenizer(vocabulary, maxlen)
+st = SentenceTokenizer(get_vocabulary(), maxlen)
 tokenized, _, _ = st.tokenize_sentences(TEST_SENTENCES)
 
 print('Loading model from {}.'.format(PRETRAINED_PATH))

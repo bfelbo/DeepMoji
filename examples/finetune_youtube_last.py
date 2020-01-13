@@ -15,17 +15,15 @@ import json
 from deepmoji.finetuning import (
     load_benchmark,
     finetune)
-from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
+from deepmoji.global_variables import PRETRAINED_PATH, get_vocabulary
 from deepmoji.model_def import deepmoji_transfer
 
 DATASET_PATH = '../data/SS-Youtube/raw.pickle'
 nb_classes = 2
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
 
 # Load dataset.
-data = load_benchmark(DATASET_PATH, vocab)
+data = load_benchmark(DATASET_PATH, get_vocabulary())
 
 # Set up model and finetune
 model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH)
