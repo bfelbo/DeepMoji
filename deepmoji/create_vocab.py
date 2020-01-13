@@ -1,5 +1,3 @@
-
-
 import glob
 import json
 import uuid
