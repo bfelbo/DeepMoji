@@ -1,4 +1,3 @@
-
 import os
 import urllib.request
 from hashlib import sha256
