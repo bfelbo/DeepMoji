@@ -1,7 +1,4 @@
-
-import json
-
-from deepmoji.global_variables import VOCAB_PATH, get_vocabulary
+from deepmoji.global_variables import get_vocabulary
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 sentences = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
