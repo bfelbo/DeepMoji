@@ -32,8 +32,7 @@ def test_dataset_split_parameter():
     split_parameter = [0.7, 0.1, 0.2]
     st = SentenceTokenizer(vocab, 30)
 
-    result, result_dicts, _ = st.split_train_val_test(sentences, dicts,
-                                                      split_parameter, extend_with=0)
+    result, result_dicts, _ = st.split_train_val_test(sentences, dicts, split_parameter, extend_with=0)
     train = result[0]
     val = result[1]
     test = result[2]
