@@ -62,7 +62,7 @@ class AttentionWeightedAverage(Layer):
         output_len = input_shape[2]
         if self.return_attention:
             return [(input_shape[0], output_len), (input_shape[0], input_shape[1])]
-        return (input_shape[0], output_len)
+        return input_shape[0], output_len
 
     def compute_mask(self, input, input_mask=None):
         if isinstance(input_mask, list):
