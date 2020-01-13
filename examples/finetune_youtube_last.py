@@ -10,8 +10,6 @@ The 'last' method does the following:
 2) Train.
 """
 
-import json
-
 from deepmoji.finetuning import (
     load_benchmark,
     finetune)
