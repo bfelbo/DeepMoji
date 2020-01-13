@@ -91,7 +91,7 @@ def correct_length(words, min_words, max_words, ignore_special_tokens=True):
         if ignore_special_tokens and is_special_token(w):
             continue
         n_words += 1
-    valid = min_words <= n_words and n_words <= max_words
+    valid = min_words <= n_words <= max_words
     return valid
 
 
