@@ -1,4 +1,3 @@
-import json
 import math
 import os
 import pickle
@@ -8,7 +7,7 @@ from os.path import join, dirname, abspath
 import numpy as np
 
 from deepmoji.create_vocab import VocabBuilder
-from deepmoji.global_variables import VOCAB_PATH
+from deepmoji.global_variables import get_vocabulary
 from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 from deepmoji.tokenizer import tokenize
 from deepmoji.word_generator import WordGenerator
@@ -68,8 +67,7 @@ def convert_dataset(filepath, extend_with, vocab):
     print('     done. Coverage: {}'.format(cover))
 
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
+vocab = get_vocabulary()
 
 for dset in DATASETS:
     print('Converting {}'.format(dset))

@@ -1,8 +1,7 @@
 import pickle
-import json
 import csv
 
-from deepmoji.global_variables import VOCAB_PATH
+from deepmoji.global_variables import get_vocabulary
 from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 
 OUTPUT_PATH = 'coverage.csv'
@@ -21,8 +20,7 @@ DATASET_PATHS = [
     '../data/SS-Youtube/raw.pickle',
 ]
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
+vocab = get_vocabulary()
 
 results = []
 for p in DATASET_PATHS:

@@ -2,11 +2,10 @@
 """
 
 import os
-
-import json
 import math
+
 from deepmoji.model_def import deepmoji_transfer
-from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
+from deepmoji.global_variables import PRETRAINED_PATH, get_vocabulary
 from deepmoji.finetuning import (
     load_benchmark,
     finetune)
@@ -39,8 +38,7 @@ nb_tokens = 50000
 nb_epochs = 1000
 epoch_size = 1000
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
+vocab = get_vocabulary()
 
 for rerun_iter in range(5):
     for p in DATASETS:
