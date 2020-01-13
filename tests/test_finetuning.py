@@ -1,4 +1,3 @@
-import json
 from os.path import dirname, abspath, join
 
 import numpy as np
