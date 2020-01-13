@@ -1,7 +1,7 @@
 
 import json
 
-from deepmoji.global_variables import VOCAB_PATH
+from deepmoji.global_variables import VOCAB_PATH, get_vocabulary
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 sentences = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
@@ -23,8 +23,7 @@ train_ind = [0, 5, 3, 6, 8]
 val_ind = [9, 2, 1]
 test_ind = [4, 7]
 
-with open(VOCAB_PATH, 'r') as f:
-    vocab = json.load(f)
+vocab = get_vocabulary()
 
 
 def test_dataset_split_parameter():

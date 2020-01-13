@@ -16,7 +16,7 @@ from deepmoji.finetuning import (
 from deepmoji.global_variables import (
     PRETRAINED_PATH,
     NB_TOKENS,
-    VOCAB_PATH
+    get_vocabulary,
 )
 from deepmoji.model_def import (
     deepmoji_transfer,
@@ -24,11 +24,6 @@ from deepmoji.model_def import (
     deepmoji_emojis
 )
 from deepmoji.sentence_tokenizer import SentenceTokenizer
-
-
-def get_vocabulary():
-    with open(VOCAB_PATH, 'r') as f:
-        return json.load(f)
 
 
 def test_calculate_batchsize_maxlen():
