@@ -94,9 +94,11 @@ class WordGenerator():
 
     def check_ascii(self, word):
         """ Returns whether a word is ASCII """
-
         try:
-            word.decode('ascii')
+            if isinstance(word, str):
+                word.encode('ascii')
+            else:  # assume we have a bytes type (legacy Python2 code)
+                word.decode('ascii')
             return True
         except (AttributeError, UnicodeDecodeError, UnicodeEncodeError):
             return False
