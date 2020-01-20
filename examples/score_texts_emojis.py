@@ -63,7 +63,7 @@ for i, t in enumerate(TEST_SENTENCES):
     scores.append(t_score)
     print(t_score)
 
-with open(OUTPUT_PATH, 'wb') as csvfile:
+with open(OUTPUT_PATH, 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter=',', lineterminator='\n')
     writer.writerow(['Text', 'Top5%',
                      'Emoji_1', 'Emoji_2', 'Emoji_3', 'Emoji_4', 'Emoji_5',
