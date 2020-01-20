@@ -12,7 +12,11 @@ from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 OUTPUT_PATH = 'coverage.csv'
 DATASET_PATHS = [
     '../data/Olympic/raw.pickle',
-    '../data/PsychExp/raw.pickle',
+    # TODO: error loading this dataset's pickle
+    #   File ".../convert_all_datasets.py", line 81, in <module>
+    #       data = pickle.load(dataset, encoding='utf-8')
+    #   _pickle.UnpicklingError: the STRING opcode argument must be quoted
+    # '../data/PsychExp/raw.pickle',
     '../data/SCv1/raw.pickle',
     '../data/SCv2-GEN/raw.pickle',
     '../data/SE0714/raw.pickle',
