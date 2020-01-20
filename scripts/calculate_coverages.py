@@ -28,8 +28,8 @@ results = []
 for p in DATASET_PATHS:
     coverage_result = [p]
     print('Calculating coverage for {}'.format(p))
-    with open(p) as f:
-        s = pickle.load(f)
+    with open(p, "rb") as f:
+        s = pickle.load(f, encoding="utf-8")
 
     # Decode data
     try:
