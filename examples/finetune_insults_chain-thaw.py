@@ -16,7 +16,7 @@ The 'chain-thaw' method does the following:
 """
 
 
-from . import example_helper
+import example_helper
 import json
 from deepmoji.model_def import deepmoji_transfer
 from deepmoji.global_variables import PRETRAINED_PATH

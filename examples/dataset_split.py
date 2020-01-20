@@ -14,7 +14,7 @@ An additional parameter can be set 'extend_with', which will extend the given
 vocabulary with up to 'extend_with' tokens, taken from the training dataset.
 '''
 
-from . import example_helper
+import example_helper
 import json
 
 from deepmoji.sentence_tokenizer import SentenceTokenizer

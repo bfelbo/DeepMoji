@@ -16,8 +16,7 @@ The class average F1 metric does the following:
 3) Compute the average of all F1 scores.
 """
 
-
-from . import example_helper
+import example_helper
 import json
 from deepmoji.finetuning import load_benchmark
 from deepmoji.class_avg_finetuning import class_avg_finetune

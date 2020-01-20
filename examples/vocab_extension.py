@@ -7,8 +7,7 @@ Extend the given vocabulary using dataset-specific words.
 4. Save this combined vocabulary and embedding matrix, which can now be used.
 """
 
-
-from . import example_helper
+import example_helper
 import json
 from deepmoji.create_vocab import extend_vocab, VocabBuilder
 from deepmoji.word_generator import WordGenerator

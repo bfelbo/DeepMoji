@@ -3,7 +3,7 @@
 """ Use DeepMoji to encode texts into emotional feature vectors.
 """
 
-from . import example_helper
+import example_helper
 import json
 import csv
 import numpy as np

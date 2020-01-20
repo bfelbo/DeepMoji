@@ -4,7 +4,7 @@
    be used with the pretrained model for optimal performance.
 """
 
-from . import example_helper
+import example_helper
 import numpy as np
 from keras.preprocessing import sequence
 from keras.datasets import imdb

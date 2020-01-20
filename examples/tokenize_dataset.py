@@ -4,8 +4,7 @@ number corresponds to a word. Padding is used (number 0) to ensure fixed length
 of sentences.
 """
 
-
-from . import example_helper
+import example_helper
 import json
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
