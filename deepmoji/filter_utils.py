@@ -136,10 +136,12 @@ def remove_variation_selectors(text):
 def shorten_word(word):
     """ Shorten groupings of 3+ identical consecutive chars to 2, e.g. '!!!!' --> '!!'
     """
-
     # only shorten ASCII words
     try:
-        word.decode('ascii')
+        if isinstance(word, str):
+            word.encode("ascii")
+        else:  # assume we have a bytes type (legacy Python2 code)
+            word.decode('ascii')
     except (AttributeError, UnicodeDecodeError, UnicodeEncodeError) as e:
         return word
 
