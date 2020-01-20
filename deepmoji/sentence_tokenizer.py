@@ -3,7 +3,6 @@ Provides functionality for converting a given list of tokens (words) into
 numbers, according to the given vocabulary.
 '''
 
-
 import numbers
 import numpy as np
 from .create_vocab import extend_vocab, VocabBuilder

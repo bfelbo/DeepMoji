@@ -2,7 +2,6 @@
     functions, ensure that the model is set up with nb_classes=2.
 """
 
-
 import sys
 import uuid
 import numpy as np

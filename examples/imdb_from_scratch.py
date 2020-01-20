@@ -3,7 +3,6 @@
    The architecture is designed for transfer learning - it should normally
    be used with the pretrained model for optimal performance.
 """
-
 import example_helper
 import numpy as np
 from keras.preprocessing import sequence

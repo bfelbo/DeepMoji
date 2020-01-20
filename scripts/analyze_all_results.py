@@ -1,5 +1,4 @@
 
-
 # allow us to import the codebase/keras directory
 import sys
 import glob

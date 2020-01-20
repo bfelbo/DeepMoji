@@ -7,7 +7,6 @@ in emoji_overview.png file at the root of the DeepMoji repo.
 
 Writes the result to a csv file.
 """
-
 import example_helper
 import json
 import csv

@@ -2,7 +2,6 @@
 """
 
 
-
 from keras.models import Model, Sequential
 from keras.layers.merge import concatenate
 from keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, SpatialDropout1D, LSTM, Activation

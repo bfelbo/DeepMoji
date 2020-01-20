@@ -1,7 +1,6 @@
 """ Finetuning functions for doing transfer learning to new datasets.
 """
 
-
 import sys
 import uuid
 from time import sleep

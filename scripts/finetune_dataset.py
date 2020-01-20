@@ -1,6 +1,5 @@
 """ Finetuning example.
 """
-
 import sys
 import numpy as np
 from os.path import abspath, dirname
