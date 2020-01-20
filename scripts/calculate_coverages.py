@@ -70,13 +70,11 @@ for p in DATASET_PATHS:
 
     results.append(coverage_result)
 
-with open(OUTPUT_PATH, 'wb') as csvfile:
+with open(OUTPUT_PATH, 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter='\t', lineterminator='\n')
     writer.writerow(['Dataset', 'Own', 'Last', 'Full'])
     for i, row in enumerate(results):
-        try:
-            writer.writerow(row)
-        except Exception:
-            print("Exception at row {}!".format(i))
+        writer.writerow(row)
+
 
 print('Saved to {}'.format(OUTPUT_PATH))
