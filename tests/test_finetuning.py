@@ -137,7 +137,7 @@ def test_finetune_full():
     model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                           data['batch_size'], method='full', nb_epochs=1)
 
-    print(("Finetune full SS-Youtube 1 epoch acc: {}".format(acc)))
+    print("Finetune full SS-Youtube 1 epoch acc: {}".format(acc))
     assert acc >= min_acc
 
 
@@ -159,7 +159,7 @@ def test_finetune_last():
     model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
                           data['batch_size'], method='last', nb_epochs=1)
 
-    print(("Finetune last SS-Youtube 1 epoch acc: {}".format(acc)))
+    print("Finetune last SS-Youtube 1 epoch acc: {}".format(acc))
     assert acc >= min_acc
 
 
