@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Some basic smoke tests ensure that the python scripts example/ at least run with
-raising a exception."""
+"""Smoke tests checking scripts in script/ run without raising a exception"""
 
 import test_helper
 import subprocess
