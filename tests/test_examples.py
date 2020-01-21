@@ -8,6 +8,8 @@ import subprocess
 
 
 def test_smoke_create_twitter_vocab():
+    # TODO: fails due to the required twitter data missing in the repository
+    #  FileNotFoundError: [Errno 2] No such file or directory: '../../twitterdata/tweets.2016-09-01'
     subprocess.run(["python", "../examples/create_twitter_vocab.py"], check=True)
 
 
@@ -19,6 +21,7 @@ def test_smoke_encode_texts():
     subprocess.run(["python", "../examples/encode_texts.py"], check=True)
 
 
+@attr("slow")
 def test_smoke_finetune_insults_chain_thaw():
     subprocess.run(["python", "../examples/finetune_insults_chain-thaw.py"], check=True)
 
