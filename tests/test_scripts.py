@@ -17,9 +17,9 @@ def test_smoke_convert_all_datasets():
     subprocess.run(["python", "../scripts/convert_all_datasets.py"], check=True)
 
 
+@attr("slow")
 def test_smoke_download_weights():
-    # subprocess.run(["python", "../scripts/download_weights.py"], check=True)
-    pass
+    subprocess.run(["python", "../scripts/download_weights.py"],  check=True, input=b"y\n")
 
 
 @attr("slow")
