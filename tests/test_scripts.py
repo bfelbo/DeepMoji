@@ -9,14 +9,6 @@ import subprocess
 from nose.plugins.attrib import attr
 
 
-def test_smoke_analyze_all_results():
-    subprocess.run(["python", "../scripts/analyze_all_results.py"], check=True)
-
-
-def test_smoke_analyze_results():
-    subprocess.run(["python", "../scripts/analyze_results.py"], check=True)
-
-
 def test_smoke_calculate_coverages():
     subprocess.run(["python", "../scripts/calculate_coverages.py"], check=True)
 
@@ -33,3 +25,11 @@ def test_smoke_download_weights():
 @attr("slow")
 def test_smoke_finetune_dataset():
     subprocess.run(["python", "../scripts/finetune_dataset.py"], check=True)
+
+
+def test_smoke_analyze_results():
+    subprocess.run(["python", "../scripts/analyze_results.py"], check=True)
+
+
+def test_smoke_analyze_all_results():
+    subprocess.run(["python", "../scripts/analyze_all_results.py"], check=True)
