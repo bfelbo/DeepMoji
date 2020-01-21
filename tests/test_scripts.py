@@ -24,7 +24,7 @@ def test_smoke_convert_all_datasets():
 
 
 def test_smoke_download_weights():
-    # subprocess.run(["python", "../scripts/convert_all_datasets.py"], check=True)
+    # subprocess.run(["python", "../scripts/download_weights.py"], check=True)
     pass
 
 
