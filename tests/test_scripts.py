@@ -6,6 +6,8 @@
 import test_helper
 import subprocess
 
+from nose.plugins.attrib import attr
+
 
 def test_smoke_analyze_all_results():
     subprocess.run(["python", "../scripts/analyze_all_results.py"], check=True)
@@ -28,5 +30,6 @@ def test_smoke_download_weights():
     pass
 
 
+@attr("slow")
 def test_smoke_finetune_dataset():
     subprocess.run(["python", "../scripts/finetune_dataset.py"], check=True)

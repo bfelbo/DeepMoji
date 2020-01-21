@@ -6,6 +6,8 @@
 import test_helper
 import subprocess
 
+from nose.plugins.attrib import attr
+
 
 def test_smoke_create_twitter_vocab():
     # TODO: fails due to the required twitter data missing in the repository
@@ -26,14 +28,17 @@ def test_smoke_finetune_insults_chain_thaw():
     subprocess.run(["python", "../examples/finetune_insults_chain-thaw.py"], check=True)
 
 
+@attr("slow")
 def test_smoke_finetune_semeval_class_avg_f1():
     subprocess.run(["python", "../examples/finetune_semeval_class-avg_f1.py"], check=True)
 
 
+@attr("slow")
 def test_smoke_finetune_youtube_last():
     subprocess.run(["python", "../examples/finetune_youtube_last.py"], check=True)
 
 
+@attr("slow")
 def test_smoke_imdb_from_scratch():
     subprocess.run(["python", "../examples/imdb_from_scratch.py"], check=True)
 
