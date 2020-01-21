@@ -1,4 +1,4 @@
-import tests.test_helper
+import test_helper
 
 from nose.plugins.attrib import attr
 import numpy as np
