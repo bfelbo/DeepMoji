@@ -28,8 +28,11 @@ def test_smoke_finetune_dataset():
 
 
 def test_smoke_analyze_results():
+    # NOTE: Should be executed after test_smoke_finetune_dataset
     subprocess.run(["python", "../scripts/analyze_results.py"], check=True)
 
 
 def test_smoke_analyze_all_results():
+    # NOTE: Should be executed after test_smoke_finetune_dataset, will fail otherwise
+    #   due to missing result files.
     subprocess.run(["python", "../scripts/analyze_all_results.py"], check=True)
