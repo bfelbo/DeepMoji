@@ -26,12 +26,14 @@ def test_smoke_download_weights():
 def test_smoke_finetune_dataset():
     subprocess.run(["python", "../scripts/finetune_dataset.py"], check=True)
 
-
+# NB: Marked as slow because it relies on test_smoke_finetune_dataset
+@attr("slow")
 def test_smoke_analyze_results():
     # NOTE: Should be executed after test_smoke_finetune_dataset
     subprocess.run(["python", "../scripts/analyze_results.py"], check=True)
 
-
+# NB: Marked as slow because it relies on test_smoke_finetune_dataset
+@attr("slow")
 def test_smoke_analyze_all_results():
     # NOTE: Should be executed after test_smoke_finetune_dataset, will fail otherwise
     #   due to missing result files.
