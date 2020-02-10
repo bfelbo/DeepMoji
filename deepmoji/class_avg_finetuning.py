@@ -7,7 +7,7 @@ import uuid
 import numpy as np
 from os.path import dirname
 from time import sleep
-from keras.optimizers import Adam
+from tensorflow.python.keras.optimizers import Adam
 
 from .global_variables import (
     FINETUNING_METHODS,

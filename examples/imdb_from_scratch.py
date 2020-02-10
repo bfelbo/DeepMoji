@@ -5,8 +5,8 @@
 """
 import example_helper
 import numpy as np
-from keras.preprocessing import sequence
-from keras.datasets import imdb
+from tensorflow.python.keras.preprocessing import sequence
+from tensorflow.python.keras.datasets import imdb
 from deepmoji.model_def import deepmoji_architecture
 
 # Seed for reproducibility

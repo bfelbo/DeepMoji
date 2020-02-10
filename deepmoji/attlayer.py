@@ -3,9 +3,9 @@
 import sys
 from os.path import dirname
 sys.path.append(dirname(dirname(__file__)))
-from keras import initializers
-from keras.engine import InputSpec, Layer
-from keras import backend as K
+from tensorflow.python.keras import initializers
+from tensorflow.python.keras.layers import InputSpec, Layer
+from tensorflow.python.keras import backend as K
 
 
 class AttentionWeightedAverage(Layer):
@@ -19,7 +19,7 @@ class AttentionWeightedAverage(Layer):
         self.supports_masking = True
         self.return_attention = return_attention
         super(AttentionWeightedAverage, self).__init__(** kwargs)
-        
+
     def get_config(self):
         config = {
             'return_attention': self.return_attention,
@@ -34,7 +34,7 @@ class AttentionWeightedAverage(Layer):
         self.W = self.add_weight(shape=(input_shape[2], 1),
                                  name='{}_W'.format(self.name),
                                  initializer=self.init)
-        self.trainable_weights = [self.W]
+        self._trainable_weights = [self.W]
         super(AttentionWeightedAverage, self).build(input_shape)
 
     def call(self, x, mask=None):
