@@ -8,12 +8,7 @@ import subprocess
 
 from nose.plugins.attrib import attr
 
-
-def test_smoke_create_twitter_vocab():
-    # TODO: fails due to the required twitter data missing in the repository
-    #  FileNotFoundError: [Errno 2] No such file or directory: '../../twitterdata/tweets.2016-09-01'
-    subprocess.run(["python", "../examples/create_twitter_vocab.py"], check=True)
-
+# Not testing create_twitter_vocab as it cannot run w/o providing data
 
 def test_smoke_dataset_split():
     subprocess.run(["python", "../examples/dataset_split.py"], check=True)
