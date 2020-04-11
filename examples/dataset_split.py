@@ -13,23 +13,22 @@ each sentence.
 An additional parameter can be set 'extend_with', which will extend the given
 vocabulary with up to 'extend_with' tokens, taken from the training dataset.
 '''
-from __future__ import print_function
 import example_helper
 import json
 
 from deepmoji.sentence_tokenizer import SentenceTokenizer
 
 DATASET = [
-    u'I am sentence 0',
-    u'I am sentence 1',
-    u'I am sentence 2',
-    u'I am sentence 3',
-    u'I am sentence 4',
-    u'I am sentence 5',
-    u'I am sentence 6',
-    u'I am sentence 7',
-    u'I am sentence 8',
-    u'I am sentence 9 newword',
+    'I am sentence 0',
+    'I am sentence 1',
+    'I am sentence 2',
+    'I am sentence 3',
+    'I am sentence 4',
+    'I am sentence 5',
+    'I am sentence 6',
+    'I am sentence 7',
+    'I am sentence 8',
+    'I am sentence 9 newword',
 ]
 
 INFO_DICTS = [

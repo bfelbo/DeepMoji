@@ -1,15 +1,15 @@
 ### ------ Update September 2018 ------
-It's now been a year since DeepMoji was released and we're trying to understand how it's being used such that we can make improvements and provide you with better models in the future. 
+It's now been a year since DeepMoji was released and we're trying to understand how it's being used such that we can make improvements and provide you with better models in the future.
 
 Please help us achieve this by answering our [4-question Google Form](https://docs.google.com/forms/d/e/1FAIpQLSd_Fmjab6BPgvA1px2C1yZlQKLedi511xASq8-GAQ2IHynZYQ/viewform "DeepMoji Google Form"). Thanks for your support!
 
 # DeepMoji
 
-[![DeepMoji Youtube](https://img.youtube.com/vi/u_JwYxtjzUs/0.jpg)](https://www.youtube.com/watch?v=u_JwYxtjzUs)  
+[![DeepMoji Youtube](https://img.youtube.com/vi/u_JwYxtjzUs/0.jpg)](https://www.youtube.com/watch?v=u_JwYxtjzUs)
 *(click image for video demonstration)*
-  
+
 DeepMoji is a model trained on 1.2 billion tweets with emojis to understand how language is used to express emotions. Through transfer learning the model can obtain state-of-the-art performance on many emotion-related text modeling tasks.
-  
+
 Try our online demo at [http://deepmoji.mit.edu](http://deepmoji.mit.edu/)! See the [paper](https://arxiv.org/abs/1708.00524), [blog post](https://medium.com/@bjarkefelbo/what-can-we-learn-from-emojis-6beb165a5ea0) or [FAQ](https://www.media.mit.edu/projects/deepmoji/overview/) for more details.
 
 ## Overview
@@ -19,7 +19,7 @@ Try our online demo at [http://deepmoji.mit.edu](http://deepmoji.mit.edu/)! See 
 * [model/](model) contains the pretrained model and vocabulary.
 * [data/](data) contains raw and processed datasets that we include in this repository for testing.
 * [tests/](tests) contains unit tests for the codebase.
-  
+
 To start out with, have a look inside the [examples/](examples) directory. See [score_texts_emojis.py](examples/score_texts_emojis.py) for how to use DeepMoji to extract emoji predictions, [encode_texts.py](examples/encode_texts.py) for how to convert text into 2304-dimensional emotional feature vectors or [finetune_youtube_last.py](examples/finetune_youtube_last.py) for how to use the model for transfer learning on a new dataset.
 
 Please consider citing our [paper](https://arxiv.org/abs/1708.00524) if you use our model or code (see below for citation).
@@ -31,7 +31,7 @@ This code is based on Keras, which requires either Theano or Tensorflow as the b
 ## Installation
 
 We assume that you're using [Python 2.7](https://www.python.org/downloads/) with [pip](https://pip.pypa.io/en/stable/installing/) installed. As a backend you need to install either [Theano (version 0.9+)](http://deeplearning.net/software/theano/install.html) or  [Tensorflow (version 1.3+)](https://www.tensorflow.org/install/). Once that's done you need to run the following inside the root directory to install the remaining dependencies:
-  
+
 ```bash
 pip install -e .
 ```
@@ -44,6 +44,11 @@ This will install the following dependencies:
 
 Ensure that Keras uses your chosen backend. You can find the instructions [here](https://keras.io/backend/), under the *Switching from one backend to another* section.
 
+You can install a working tensorflow backend by running:
+```bash
+pip install -e .[tensorflow_backend]
+```
+
 Run the included script, which downloads the pretrained DeepMoji weights (~85MB) from [here](https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?dl=0) and places them in the model/ directory:
 
 ```bash
@@ -54,23 +59,23 @@ python scripts/download_weights.py
 To run the tests, install [nose](http://nose.readthedocs.io/en/latest/). After installing, navigate to the [tests/](tests) directory and run:
 
 ```bash
-nosetests -v
+nosetests --nologcapture
 ```
 
-By default, this will also run finetuning tests. These tests train the model for one epoch and then check the resulting accuracy, which may take several minutes to finish. If you'd prefer to exclude those, run the following instead: 
+By default, this will also run finetuning tests. These tests train the model for one epoch and then check the resulting accuracy, which may take several minutes to finish. If you'd prefer to exclude those, run the following instead:
 
 ```bash
-nosetests -v -a '!slow'
+nosetests -v -a 'slow=False'
 ```
 
-## Disclaimer 
+## Disclaimer
 This code has been tested to work with Python 2.7 on an Ubuntu 16.04 machine. It has not been optimized for efficiency, but should be fast enough for most purposes. We do not give any guarantees that there are no bugs - use the code on your own responsibility!
 
 ## Contributions
 We welcome pull requests if you feel like something could be improved. You can also greatly help us by telling us how you felt when writing your most recent tweets. Just click [here](http://deepmoji.mit.edu/contribute/) to contribute.
 
 ## License
-This code and the pretrained model is licensed under the MIT license. 
+This code and the pretrained model is licensed under the MIT license.
 
 ## Benchmark datasets
 The benchmark datasets are uploaded to this repository for convenience purposes only. They were not released by us and we do not claim any rights on them. Use the datasets at your responsibility and make sure you fulfill the licenses that they were released with. If you use any of the benchmark datasets please consider citing the original authors.

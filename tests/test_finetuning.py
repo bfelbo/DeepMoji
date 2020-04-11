@@ -1,8 +1,10 @@
 import test_helper
+import tensorflow
 
 from nose.plugins.attrib import attr
 import numpy as np
 import json
+import os
 
 from deepmoji.class_avg_finetuning import relabel
 from deepmoji.sentence_tokenizer import SentenceTokenizer
@@ -25,6 +27,8 @@ from deepmoji.global_variables import (
     NB_TOKENS,
     VOCAB_PATH
 )
+from tensorflow.python.keras.models import load_model
+from tensorflow.python.keras.optimizers import Adam
 
 
 def test_calculate_batchsize_maxlen():
@@ -167,13 +171,13 @@ def test_score_emoji():
     """ Emoji predictions make sense.
     """
     test_sentences = [
-        u'I love mom\'s cooking',
-        u'I love how you never reply back..',
-        u'I love cruising with my homies',
-        u'I love messing with yo mind!!',
-        u'I love you and now you\'re just gone..',
-        u'This is shit',
-        u'This is the shit'
+        'I love mom\'s cooking',
+        'I love how you never reply back..',
+        'I love cruising with my homies',
+        'I love messing with yo mind!!',
+        'I love you and now you\'re just gone..',
+        'This is shit',
+        'This is the shit'
     ]
 
     expected = [
@@ -210,13 +214,13 @@ def test_encode_texts():
     """ Text encoding is stable.
     """
 
-    TEST_SENTENCES = [u'I love mom\'s cooking',
-                      u'I love how you never reply back..',
-                      u'I love cruising with my homies',
-                      u'I love messing with yo mind!!',
-                      u'I love you and now you\'re just gone..',
-                      u'This is shit',
-                      u'This is the shit']
+    TEST_SENTENCES = ['I love mom\'s cooking',
+                      'I love how you never reply back..',
+                      'I love cruising with my homies',
+                      'I love messing with yo mind!!',
+                      'I love you and now you\'re just gone..',
+                      'This is shit',
+                      'This is the shit']
 
     maxlen = 30
     batch_size = 32
@@ -231,3 +235,13 @@ def test_encode_texts():
     encoding = model.predict(tokenized)
     avg_across_sentences = np.around(np.mean(encoding, axis=0)[:5], 3)
     assert np.allclose(avg_across_sentences, np.array([-0.023, 0.021, -0.037, -0.001, -0.005]))
+
+
+def test_save_and_loading_model():
+    model = deepmoji_architecture(3, NB_TOKENS, maxlen=30)
+    model.compile(loss="categorical_crossentropy",
+        optimizer=Adam(), metrics=['accuracy'])
+    model.save("tmp_saved_model", save_format="tf")
+    loaded_model = load_model("tmp_saved_model")
+    loaded_model.summary()
+    os.remove("tmp_saved_model")

@@ -1,14 +1,12 @@
 """ Model definition functions and weight loading.
 """
 
-from __future__ import print_function, division
-
-from keras.models import Model, Sequential
-from keras.layers.merge import concatenate
-from keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, SpatialDropout1D, LSTM, Activation
-from keras.regularizers import L1L2
-from attlayer import AttentionWeightedAverage
-from global_variables import NB_TOKENS, NB_EMOJI_CLASSES
+from tensorflow.python.keras.models import Model, Sequential
+from tensorflow.python.keras.layers.merge import concatenate
+from tensorflow.python.keras.layers import Input, Bidirectional, Embedding, Dense, Dropout, SpatialDropout1D, LSTM, Activation
+from tensorflow.python.keras.regularizers import L1L2
+from .attlayer import AttentionWeightedAverage
+from .global_variables import NB_TOKENS, NB_EMOJI_CLASSES
 import numpy as np
 from copy import deepcopy
 from os.path import exists

@@ -7,7 +7,6 @@ in emoji_overview.png file at the root of the DeepMoji repo.
 
 Writes the result to a csv file.
 """
-from __future__ import print_function, division
 import example_helper
 import json
 import csv
@@ -18,13 +17,13 @@ from deepmoji.global_variables import PRETRAINED_PATH, VOCAB_PATH
 
 OUTPUT_PATH = 'test_sentences.csv'
 
-TEST_SENTENCES = [u'I love mom\'s cooking',
-                  u'I love how you never reply back..',
-                  u'I love cruising with my homies',
-                  u'I love messing with yo mind!!',
-                  u'I love you and now you\'re just gone..',
-                  u'This is shit',
-                  u'This is the shit']
+TEST_SENTENCES = ['I love mom\'s cooking',
+                  'I love how you never reply back..',
+                  'I love cruising with my homies',
+                  'I love messing with yo mind!!',
+                  'I love you and now you\'re just gone..',
+                  'This is shit',
+                  'This is the shit']
 
 
 def top_elements(array, k):
@@ -64,7 +63,7 @@ for i, t in enumerate(TEST_SENTENCES):
     scores.append(t_score)
     print(t_score)
 
-with open(OUTPUT_PATH, 'wb') as csvfile:
+with open(OUTPUT_PATH, 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter=',', lineterminator='\n')
     writer.writerow(['Text', 'Top5%',
                      'Emoji_1', 'Emoji_2', 'Emoji_3', 'Emoji_4', 'Emoji_5',

@@ -1,4 +1,3 @@
-from __future__ import print_function
 import pickle
 import json
 import csv
@@ -13,7 +12,11 @@ from deepmoji.sentence_tokenizer import SentenceTokenizer, coverage
 OUTPUT_PATH = 'coverage.csv'
 DATASET_PATHS = [
     '../data/Olympic/raw.pickle',
-    '../data/PsychExp/raw.pickle',
+    # TODO: error loading this dataset's pickle
+    #   File ".../convert_all_datasets.py", line 81, in <module>
+    #       data = pickle.load(dataset, encoding='utf-8')
+    #   _pickle.UnpicklingError: the STRING opcode argument must be quoted
+    # '../data/PsychExp/raw.pickle',
     '../data/SCv1/raw.pickle',
     '../data/SCv2-GEN/raw.pickle',
     '../data/SE0714/raw.pickle',
@@ -29,12 +32,12 @@ results = []
 for p in DATASET_PATHS:
     coverage_result = [p]
     print('Calculating coverage for {}'.format(p))
-    with open(p) as f:
-        s = pickle.load(f)
+    with open(p, "rb") as f:
+        s = pickle.load(f, encoding="utf-8")
 
     # Decode data
     try:
-        s['texts'] = [unicode(x) for x in s['texts']]
+        s['texts'] = [str(x) for x in s['texts']]
     except UnicodeDecodeError:
         s['texts'] = [x.decode('utf-8') for x in s['texts']]
 
@@ -67,13 +70,11 @@ for p in DATASET_PATHS:
 
     results.append(coverage_result)
 
-with open(OUTPUT_PATH, 'wb') as csvfile:
+with open(OUTPUT_PATH, 'w') as csvfile:
     writer = csv.writer(csvfile, delimiter='\t', lineterminator='\n')
     writer.writerow(['Dataset', 'Own', 'Last', 'Full'])
     for i, row in enumerate(results):
-        try:
-            writer.writerow(row)
-        except Exception:
-            print("Exception at row {}!".format(i))
+        writer.writerow(row)
+
 
 print('Saved to {}'.format(OUTPUT_PATH))

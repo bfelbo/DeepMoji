@@ -1,5 +1,5 @@
 """ Module import helper.
-Modifies PATH in order to allow us to import the deepmoji directory.
+Modifies PATH in order to allow us to import the DeepMoji directory.
 """
 import sys
 from os.path import abspath, dirname

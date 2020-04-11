@@ -10,7 +10,6 @@ The 'last' method does the following:
 2) Train.
 """
 
-from __future__ import print_function
 import example_helper
 import json
 from deepmoji.model_def import deepmoji_transfer

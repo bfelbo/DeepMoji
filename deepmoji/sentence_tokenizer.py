@@ -2,13 +2,12 @@
 Provides functionality for converting a given list of tokens (words) into
 numbers, according to the given vocabulary.
 '''
-from __future__ import print_function, division
 
 import numbers
 import numpy as np
-from create_vocab import extend_vocab, VocabBuilder
-from word_generator import WordGenerator
-from global_variables import SPECIAL_TOKENS
+from .create_vocab import extend_vocab, VocabBuilder
+from .word_generator import WordGenerator
+from .global_variables import SPECIAL_TOKENS
 from sklearn.model_selection import train_test_split
 from copy import deepcopy
 
@@ -163,8 +162,8 @@ class SentenceTokenizer():
 
             # Helper function to verify provided indices are numbers in range
             def verify_indices(inds):
-                return list(filter(lambda i: isinstance(i, numbers.Number) and
-                                   i < len(sentences), inds))
+                return list([i for i in inds if isinstance(i, numbers.Number) and
+                                   i < len(sentences)])
 
             ind_train = verify_indices(split_parameter[0])
             ind_val = verify_indices(split_parameter[1])
@@ -210,7 +209,7 @@ class SentenceTokenizer():
             together with spaces.
         """
         # Have to recalculate the mappings in case the vocab was extended.
-        ind_to_word = {ind: word for word, ind in self.vocabulary.iteritems()}
+        ind_to_word = {ind: word for word, ind in self.vocabulary.items()}
 
         sentence_as_list = [ind_to_word[x] for x in sentence_idx]
         cleaned_list = [x for x in sentence_as_list if x != 'CUSTOM_MASK']
