@@ -6,6 +6,7 @@ sys.path.append(dirname(dirname(__file__)))
 from tensorflow.python.keras import initializers
 from tensorflow.python.keras.layers import InputSpec, Layer
 from tensorflow.python.keras import backend as K
+from tensorflow import tensordot
 
 
 class AttentionWeightedAverage(Layer):
@@ -42,7 +43,7 @@ class AttentionWeightedAverage(Layer):
         # uses 'max trick' for numerical stability
         # reshape is done to avoid issue with Tensorflow
         # and 1-dimensional weights
-        logits = K.dot(x, self.W)
+        logits = tensordot(x, self.W, axes=1)
         x_shape = K.shape(x)
         logits = K.reshape(logits, (x_shape[0], x_shape[1]))
         ai = K.exp(logits - K.max(logits, axis=-1, keepdims=True))

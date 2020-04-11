@@ -1,8 +1,10 @@
 import test_helper
+import tensorflow
 
 from nose.plugins.attrib import attr
 import numpy as np
 import json
+import os
 
 from deepmoji.class_avg_finetuning import relabel
 from deepmoji.sentence_tokenizer import SentenceTokenizer
@@ -25,6 +27,8 @@ from deepmoji.global_variables import (
     NB_TOKENS,
     VOCAB_PATH
 )
+from tensorflow.python.keras.models import load_model
+from tensorflow.python.keras.optimizers import Adam
 
 
 def test_calculate_batchsize_maxlen():
@@ -231,3 +235,13 @@ def test_encode_texts():
     encoding = model.predict(tokenized)
     avg_across_sentences = np.around(np.mean(encoding, axis=0)[:5], 3)
     assert np.allclose(avg_across_sentences, np.array([-0.023, 0.021, -0.037, -0.001, -0.005]))
+
+
+def test_save_and_loading_model():
+    model = deepmoji_architecture(3, NB_TOKENS, maxlen=30)
+    model.compile(loss="categorical_crossentropy",
+        optimizer=Adam(), metrics=['accuracy'])
+    model.save("tmp_saved_model", save_format="tf")
+    loaded_model = load_model("tmp_saved_model")
+    loaded_model.summary()
+    os.remove("tmp_saved_model")
