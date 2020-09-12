@@ -9,7 +9,7 @@ weights_folder = 'model'
 weights_path = '{}/{}'.format(weights_folder, weights_filename)
 if curr_folder == 'scripts':
     weights_path = '../' + weights_path
-weights_download_link = 'https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?dl=0#'
+weights_download_link = 'https://www.dropbox.com/s/xqarafsl6a8f9ny/deepmoji_weights.hdf5?raw=1'
 
 
 MB_FACTOR = float(1 << 20)
@@ -27,7 +27,7 @@ def prompt():
         if 'TRAVIS' in os.environ:
             choice = 'yes'
         else:
-            choice = raw_input().lower()
+            choice = input().lower()
         if choice in valid:
             return valid[choice]
         else:
