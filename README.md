@@ -1,7 +1,6 @@
-### ------ Update September 2018 ------
-It's now been a year since DeepMoji was released and we're trying to understand how it's being used such that we can make improvements and provide you with better models in the future. 
+### ------ Update September 2023 ------
 
-Please help us achieve this by answering our [4-question Google Form](https://docs.google.com/forms/d/e/1FAIpQLSd_Fmjab6BPgvA1px2C1yZlQKLedi511xASq8-GAQ2IHynZYQ/viewform "DeepMoji Google Form"). Thanks for your support!
+The online demo is no longer available as it's not possible for us to renew the certificate. The code in this repo still works, but you might have to make some changes for it to work in Python 3 (see the open PRs). You can also check out the PyTorch version of this algorithm called [torchMoji](https://github.com/huggingface/torchMoji) made by HuggingFace.
 
 # DeepMoji
 
@@ -10,7 +9,7 @@ Please help us achieve this by answering our [4-question Google Form](https://do
   
 DeepMoji is a model trained on 1.2 billion tweets with emojis to understand how language is used to express emotions. Through transfer learning the model can obtain state-of-the-art performance on many emotion-related text modeling tasks.
   
-Try our online demo at [http://deepmoji.mit.edu](http://deepmoji.mit.edu/)! See the [paper](https://arxiv.org/abs/1708.00524), [blog post](https://medium.com/@bjarkefelbo/what-can-we-learn-from-emojis-6beb165a5ea0) or [FAQ](https://www.media.mit.edu/projects/deepmoji/overview/) for more details.
+See the [paper](https://arxiv.org/abs/1708.00524) or [blog post](https://medium.com/@bjarkefelbo/what-can-we-learn-from-emojis-6beb165a5ea0) for more details.
 
 ## Overview
 * [deepmoji/](deepmoji) contains all the underlying code needed to convert a dataset to our vocabulary and use our model.
