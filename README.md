@@ -23,6 +23,11 @@ To start out with, have a look inside the [examples/](examples) directory. See [
 
 Please consider citing our [paper](https://arxiv.org/abs/1708.00524) if you use our model or code (see below for citation).
 
+## Emoji Codes
+Here the emoji codes mapping to model classes.
+
+![emoji_overview](https://user-images.githubusercontent.com/163333/31664953-a4ea8836-b347-11e7-82b4-999b41949786.png)
+
 ## Frameworks
 
 This code is based on Keras, which requires either Theano or Tensorflow as the backend. If you would rather use pyTorch there's an implementation available [here](https://github.com/huggingface/torchMoji), which has kindly been provided by Thomas Wolf.
@@ -47,6 +52,14 @@ Run the included script, which downloads the pretrained DeepMoji weights (~85MB)
 
 ```bash
 python scripts/download_weights.py
+```
+
+## Virtualenv installation with Default backend
+To install via `virtualenv` and the default Keras backend `tensorflow`
+```
+virtualenv .env
+. .env/bin/activate
+pip install -r requirements.text
 ```
 
 ## Testing
